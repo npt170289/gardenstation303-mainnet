@@ -1,4 +1,4 @@
-<!-- MAINNET BUILD FIX v2-  -->
+<!-- MAINNET BUILD FIX v3 - MAINNET UI + TEST PAY -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +14,14 @@ button{padding:12px 20px;margin:10px;font-size:16px;cursor:pointer;font-weight:b
 </head>
 <body>
 <h2>🚀 Garden Station 303 - <span>MAINNET</span> Batch A2U</h2>
-<p>Giữ khuôn 5 UID chuẩn - Đổi sang API Key Mainnet mới fkjhvw...</p>
+<p>Giữ khuôn 5 UID chuẩn - API Key fkjhvw... (MAINNET UI + TEST PAY)</p>
 <button id="btnLogin">1. ĐĂNG NHẬP PI MAINNET</button>
-<button id="btnPay">2. BẮN 5 UID MAINNET</button>
-<div id="log">Sẵn sàng MAINNET...</div>
+<button id="btnPay">2. BẮN 5 UID (TEST PAY)</button>
+<div id="log">Sẵn sàng MAINNET (Pay TEST)...</div>
 <script>
 const Pi=window.Pi;
-Pi.init({version:"2.0", sandbox:false}); // MAINNET - Không phải Testnet nữa
+// FIX QUAN TRỌNG: API Key xài chung, nhưng sandbox phải là true để pay Pi TEST
+Pi.init({version:"2.0", sandbox:true});
 
 // GIỮ NGUYÊN 5 UID CHUẨN ĐÃ ĐẬU A2U TESTNET
 const TARGET_UIDS=[
@@ -31,8 +32,8 @@ const TARGET_UIDS=[
 {username:"dttngan123",uid:"e668ffbf-8de9-42c3-a918-b3ffd13ba9ce"}
 ];
 function addLog(m){let el=document.getElementById('log');el.textContent+="\n["+new Date().toLocaleTimeString()+"] "+m;el.scrollTop=el.scrollHeight}
-document.getElementById('btnLogin').onclick=async()=>{try{addLog("🔄 Xác thực Pi MAINNET...");let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});addLog("✅ LOGIN MAINNET: "+auth.user.uid)}catch(e){addLog("❌ LỖI: "+e.message)}};
-document.getElementById('btnPay').onclick=async()=>{addLog("🚀 BẮT ĐẦU BẮN 5 UID MAINNET...");for(let i=0;i<TARGET_UIDS.length;i++){let u=TARGET_UIDS[i];addLog(`⏳ [${i+1}/5] @${u.username}`);try{let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});let res=await r.json();if(r.ok)addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG! ${JSON.stringify(res)}`);else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`)}catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}await new Promise(r=>setTimeout(r,1500))}addLog("🎉 XONG BATCH MAINNET!")};
+document.getElementById('btnLogin').onclick=async()=>{try{addLog("🔄 Xác thực Pi (TEST MODE)...");let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});addLog("✅ LOGIN OK (TEST): "+auth.user.uid)}catch(e){addLog("❌ LỖI: "+e.message)}};
+document.getElementById('btnPay').onclick=async()=>{addLog("🚀 BẮT ĐẦU BẮN 5 UID - TEST PAY...");for(let i=0;i<TARGET_UIDS.length;i++){let u=TARGET_UIDS[i];addLog(`⏳ [${i+1}/5] @${u.username}`);try{let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});let res=await r.json();if(r.ok)addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG! ${JSON.stringify(res)}`);else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`)}catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}await new Promise(r=>setTimeout(r,1500))}addLog("🎉 XONG BATCH - PI TEST!")};
 </script>
 </body>
 </html>
