@@ -1,4 +1,5 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "comment": "FORCE MAINNET BUILD V3"
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
