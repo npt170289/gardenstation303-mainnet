@@ -3,61 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Garden Station 303 - Testnet A2U Batch</title>
+  <title>Garden Station 303 - Mainnet A2U Batch</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
-    body { font-family: monospace; background: #111; color: #0f0; padding: 20px; }
-    button { padding: 12px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
-    #log { white-space: pre-wrap; background: #000; padding: 15px; border: 1px solid #0f0; height: 400px; overflow: auto; }
+    body { font-family: monospace; background: #0a0a0a; color: #fff; padding: 20px; text-align: center; }
+   .badge { background: #ff0000; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+    button { padding: 12px 20px; margin: 10px; font-size: 16px; cursor: pointer; font-weight: bold; border: none; border-radius: 8px; }
+    #btnLogin { background: #ffcc00; color: #000; }
+    #btnPay { background: #00ff88; color: #000; }
+    #log { white-space: pre-wrap; background: #000; padding: 15px; border: 1px solid #333; height: 400px; overflow: auto; text-align: left; color: #0f0; margin-top: 20px;}
   </style>
 </head>
 <body>
-  <h2>🚀 Garden Station 303 - Testnet Batch A2U</h2>
-  <button id="btnLogin">1. ĐĂNG NHẬP PI</button>
-  <button id="btnPay">2. BẮN 5 UID</button>
-  <div id="log">Sẵn sàng kết nối...</div>
+  <h2>🚀 Garden Station 303 <span class="badge">MAINNET</span></h2>
+  <p>Beer Garden DJ LED Dancer - Pi Mainnet Production</p>
+  <p>Domain: gardenstation303-mainnet.vercel.app - API Key Mới fkjhvw...</p>
+  <button id="btnLogin">1. ĐĂNG NHẬP PI MAINNET</button>
+  <button id="btnPay">2. BẮN 5 UID MAINNET</button>
+  <div id="log">--- LOG MAINNET ---\nSẵn sàng kết nối Mainnet...\n</div>
 
 <script>
   const Pi = window.Pi;
-  Pi.init({ version: "2.0", sandbox: true });
+  // ĐÃ ĐỔI QUA MAINNET
+  Pi.init({ version: "2.0", sandbox: false });
 
-  // Danh sách 5 UID chuẩn xác thực tế
+  // Giữ nguyên 5 UID y chang con Testnet vệ tinh
   const TARGET_UIDS = [
     { username: "nguyenanhtuan113113", uid: "657c1562-9472-4013-a76c-134404310717" },
-    { username: "thuongsheva",         uid: "70ea2ff5-c5ef-4dd2-a934-d8c73e280696" },
-    { username: "phithuong07",         uid: "0f8fdab1-75de-471e-a09f-896652b263d6" },
-    { username: "thuongsheva01",       uid: "13eb4a7e-be36-42cc-9c4a-61dbd7d9359f" },
-    { username: "dttngan123",          uid: "e668ffbf-8de9-42c3-a918-b3ffd13ba9ce" }
+    { username: "thuongsheva", uid: "70ea2ff5-c5ef-4dd2-a934-d8c73e280696" },
+    { username: "phithuong07", uid: "0f8fdab1-75de-471e-a09f-896652b263d6" },
+    { username: "thuongsheva01", uid: "13eb4a7e-be36-42cc-9c4a-61dbd7d9359f" },
+    { username: "dttngan123", uid: "e668ffbf-8de9-42c3-a918-b3ffd13ba9ce" }
   ];
 
   function addLog(m) {
     const el = document.getElementById('log');
     el.textContent += "\n[" + new Date().toLocaleTimeString() + "] " + m;
     el.scrollTop = el.scrollHeight;
-    console.log(m);
   }
 
   let tokenSession = null;
 
   document.getElementById('btnLogin').onclick = async () => {
     try {
-      addLog("🔄 Đang yêu cầu xác thực Pi Network...");
+      addLog("🔄 Đang yêu cầu xác thực Pi Network MAINNET...");
       const auth = await Pi.authenticate(['username', 'payments'], (incompletePayment) => {
-        addLog("⚠️ Phát hiện giao dịch chưa hoàn thành: " + incompletePayment.identifier);
+        addLog("⚠ Phát hiện giao dịch chưa hoàn thành: " + incompletePayment.identifier);
       });
       tokenSession = auth.accessToken;
-      addLog("✅ Đăng nhập thành công! User UID: " + auth.user.uid);
+      addLog("✅ ĐĂNG NHẬP MAINNET THÀNH CÔNG! User: " + auth.user.username + " UID: " + auth.user.uid);
     } catch (e) {
       addLog("❌ Lỗi đăng nhập: " + e.message);
     }
   };
 
   document.getElementById('btnPay').onclick = async () => {
-    addLog("🚀 BẮT ĐẦU QUY TRÌNH BẮN A2U CHO 5 UID...");
+    addLog("🚀 BẮT ĐẦU QUY TRÌNH BẮN A2U MAINNET CHO 5 UID...");
 
     for (let i = 0; i < TARGET_UIDS.length; i++) {
       const user = TARGET_UIDS[i];
-      addLog(`⏳ [${i + 1}/5] Đang gửi A2U cho @${user.username} (${user.uid.slice(0, 8)}...)`);
+      addLog(`⏳ [${i + 1}/5] Đang gửi A2U MAINNET cho @${user.username}`);
 
       try {
         const response = await fetch('/api/a2u', {
@@ -73,19 +78,18 @@
         const result = await response.json();
 
         if (response.ok && result.success) {
-          addLog(`✅ [${i + 1}/5] @${user.username} THÀNH CÔNG! PaymentID: ${result.paymentId || 'N/A'}`);
+          addLog(`✅ [${i + 1}/5] @${user.username} MAINNET THÀNH CÔNG! PaymentID: ${result.paymentId || 'N/A'}`);
         } else {
           addLog(`❌ [${i + 1}/5] @${user.username} THẤT BẠI: ${result.error || JSON.stringify(result)}`);
         }
       } catch (err) {
-        addLog(`❌ [${i + 1}/5] Lỗi kết nối mạng: ${err.message}`);
+        addLog(`❌ [${i + 1}/5] Lỗi kết nối: ${err.message}`);
       }
 
-      // Nghỉ 1.5 giây giữa mỗi lần bắn để tránh nghẽn request
       await new Promise(r => setTimeout(r, 1500));
     }
 
-    addLog("🎉 HOÀN TẤT TOÀN BỘ BATCH 5 UID!");
+    addLog("🎉 HOÀN TẤT BATCH 5 UID MAINNET!");
   };
 </script>
 </body>
