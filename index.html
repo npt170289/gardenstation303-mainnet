@@ -1,80 +1,37 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garden Station 303 Mainnet - Fix 404</title>
+<meta charset="utf-8">
+<title>Garden Station 303 - MAINNET A2U Batch</title>
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <style>
-body{font-family:sans-serif;background:#f5f5f5;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
-.card{background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.1);text-align:center;max-width:380px;width:90%}
-button{background:#6a5af9;color:#fff;border:0;padding:12px 20px;border-radius:10px;font-size:16px;width:100%;margin-top:8px}
-button.clear{background:#ff4d4d;margin-top:12px}
-#log{margin-top:16px;font-size:12px;text-align:left;background:#111;color:#0f0;padding:10px;border-radius:8px;min-height:80px;word-break:break-all;overflow:auto;max-height:220px}
+body{font-family:monospace;background:#0a0a0a;color:#0f0;padding:20px}
+h2 span{color:#fff;background:red;padding:5px 10px;border-radius:5px}
+button{padding:12px 20px;margin:10px;font-size:16px;cursor:pointer;font-weight:bold}
+#log{white-space:pre-wrap;background:#000;padding:15px;border:1px solid #0f0;height:400px;overflow:auto}
 </style>
 </head>
 <body>
-<div class="card">
-<h1>Garden Station 303 Mainnet</h1>
-<p>Fix 404 - Clear ket + Pay</p>
-<button id="btnClear" class="clear">1. Clear ket (incomplete payments)</button>
-<button id="btn">2. Thanh toan 1 Pi Test - Fix 60s</button>
-<div id="log">San sang Testnet</div>
-</div>
+<h2>🚀 Garden Station 303 - <span>MAINNET</span> Batch A2U</h2>
+<p>Giữ khuôn 5 UID chuẩn - Đổi sang API Key Mainnet mới fkjhvw...</p>
+<button id="btnLogin">1. ĐĂNG NHẬP PI MAINNET</button>
+<button id="btnPay">2. BẮN 5 UID MAINNET</button>
+<div id="log">Sẵn sàng MAINNET...</div>
 <script>
-const API_BASE = "https://gardenstation303.vercel.app"; // DOI THANH https://khaihoanspa.vercel.app NEU ONG CO PROJECT RIENG
-const log = (m)=>{document.getElementById('log').innerHTML+=`<br>> ${m}`; console.log(m);}
-window.addEventListener('load', ()=>{
-  Pi.init({version:"2.0", sandbox:true}); // Testnet bat buoc sandbox:true
-  log('Pi SDK TESTNET san sang');
-  log('API: '+API_BASE);
-});
-document.getElementById('btnClear').onclick = async ()=>{
-  try{
-    const auth = await Pi.authenticate(['username','payments']);
-    log('Clear cho @'+auth.user.username);
-    const payments = await Pi.getIncompletePayments();
-    log('Tim thay '+payments.length+' payment ket');
-    for(let p of payments){
-      log('Huy ket: '+p.identifier);
-      await fetch(`${API_BASE}/api/complete`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({paymentId:p.identifier, txid:null, cancelled:true})}).catch(()=>{});
-      // Pi SDK se tu dong cancel o client, backend chi log
-    }
-    log('Da clear xong, thu Pay lai');
-  }catch(e){log('Clear Loi: '+e.message)}
-};
-document.getElementById('btn').onclick = async ()=>{
-  try{
-    const auth = await Pi.authenticate(['username','payments']);
-    log('@'+auth.user.username);
-    await Pi.createPayment({
-      amount: 1,
-      memo: "Garden Station 303 Mainnet - 1 Pi Test - Fix 60s",
-      metadata: {service:"spa-test-fix-60s"}
-    },{
-      onReadyForServerApproval: async (id)=>{
-        log('Approve '+id);
-        try{
-          const r = await fetch(`${API_BASE}/api/approve`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({paymentId:id})});
-          const txt = await r.text();
-          log('Approve: '+r.status+' '+txt.slice(0,200));
-          if(!r.ok) throw new Error(txt);
-        }catch(e){ log('Approve Loi: '+e.message); }
-      },
-      onReadyForServerCompletion: async (id,txid)=>{
-        log('Complete '+txid);
-        try{
-          const r = await fetch(`${API_BASE}/api/complete`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({paymentId:id,txid:txid})});
-          const txt = await r.text();
-          log('Complete: '+r.status+' '+txt.slice(0,200));
-          if(r.ok) log('THANH CONG! Check vi KUVEP');
-        }catch(e){ log('Complete Loi: '+e.message); }
-      },
-      onCancel: (id)=>log('Huy: '+id),
-      onError: (e)=>log('Loi SDK: '+e.message)
-    });
-  }catch(e){log('Loi: '+e.message)}
-};
+const Pi=window.Pi;
+Pi.init({version:"2.0", sandbox:false}); // MAINNET - Không phải Testnet nữa
+
+// GIỮ NGUYÊN 5 UID CHUẨN ĐÃ ĐẬU A2U TESTNET
+const TARGET_UIDS=[
+{username:"nguyenanhtuan113113",uid:"657c1562-9472-4013-a76c-134404310717"},
+{username:"thuongsheva",uid:"70ea2ff5-c5ef-4dd2-a934-d8c73e280696"},
+{username:"phithuong07",uid:"0f8fdab1-75de-471e-a09f-896652b263d6"},
+{username:"thuongsheva01",uid:"13eb4a7e-be36-42cc-9c4a-61dbd7d9359f"},
+{username:"dttngan123",uid:"e668ffbf-8de9-42c3-a918-b3ffd13ba9ce"}
+];
+function addLog(m){let el=document.getElementById('log');el.textContent+="\n["+new Date().toLocaleTimeString()+"] "+m;el.scrollTop=el.scrollHeight}
+document.getElementById('btnLogin').onclick=async()=>{try{addLog("🔄 Xác thực Pi MAINNET...");let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});addLog("✅ LOGIN MAINNET: "+auth.user.uid)}catch(e){addLog("❌ LỖI: "+e.message)}};
+document.getElementById('btnPay').onclick=async()=>{addLog("🚀 BẮT ĐẦU BẮN 5 UID MAINNET...");for(let i=0;i<TARGET_UIDS.length;i++){let u=TARGET_UIDS[i];addLog(`⏳ [${i+1}/5] @${u.username}`);try{let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});let res=await r.json();if(r.ok)addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG! ${JSON.stringify(res)}`);else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`)}catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}await new Promise(r=>setTimeout(r,1500))}addLog("🎉 XONG BATCH MAINNET!")};
 </script>
 </body>
 </html>
