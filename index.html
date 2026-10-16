@@ -1,28 +1,55 @@
-<!-- GARDEN STATION 303 - MAINNET BUILD + SANDBOX ENABLED v4 -->
+<!-- GARDEN STATION 303 - MAINNET BUILD + SANDBOX ENABLED v5 - FIX XÁC MINH -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Garden Station 303 - MAINNET A2U Batch (SANDBOX MODE)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garden Station 303 - MAINNET - SANDBOX</title>
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <style>
-body{font-family:monospace;background:#0a0a0a;color:#0f0;padding:20px}
-h2 span{color:#fff;background:red;padding:5px 10px;border-radius:5px}
-h2 span.test{color:#000;background:#0f0;}
-button{padding:12px 20px;margin:10px;font-size:16px;cursor:pointer;font-weight:bold}
-#log{white-space:pre-wrap;background:#000;padding:15px;border:1px solid #0f0;height:400px;overflow:auto}
+/* FIX 3 DÒNG CHỒNG NHAU: Đẩy body xuống để tránh header Pi Browser */
+body{font-family:monospace;background:#0a0a0a;color:#0f0;padding:15px;padding-top:50px;margin:0}
+h2{margin-top:10px;font-size:18px;line-height:1.4}
+h2 span.main{color:#fff;background:red;padding:3px 8px;border-radius:4px}
+h2 span.test{color:#000;background:#0f0;padding:3px 8px;border-radius:4px;margin-left:5px}
+button{padding:12px 18px;margin:8px 5px;font-size:15px;cursor:pointer;font-weight:bold;border-radius:6px}
+#verify{border:1px dashed #ff0;background:#1a1a00;color:#ff0;padding:10px;margin:12px 0;font-size:12px;border-radius:6px;word-break:break-all}
+#verify b{color:#fff}
+#log{white-space:pre-wrap;background:#000;padding:12px;border:1px solid #0f0;height:420px;overflow:auto;font-size:12px;border-radius:6px}
 </style>
 </head>
 <body>
-<h2>🚀 Garden Station 303 - <span>MAINNET</span> Batch A2U <span class="test">SANDBOX ENABLED</span></h2>
-<p>App MAINNET - Pay Pi TEST - API Key fkjhvw... - 5 UID Chuẩn</p>
+
+<!-- CHỈ ĐỂ 1 DÒNG DUY NHẤT, KHÔNG ĐỂ 3 DÒNG GARDEN STATION 303 NỮA -->
+<h2>🚀 <span class="main">MAINNET</span> Batch A2U <span class="test">SANDBOX ENABLED</span></h2>
+
+<p style="color:#aaa;font-size:12px;margin:5px 0">App MAINNET - Pay Pi TEST - 5 UID Chuẩn</p>
+
+<!-- KHUNG XÁC MINH 100% LÀ CON MAINNET NÀY -->
+<div id="verify">
+<b>🔍 XÁC MINH ĐANG PAY CHO CON NÀO:</b><br>
+✅ App ID: <b>garden-station-303-fdkp</b> (MAINNET)<br>
+✅ Build: <b>gardenstation303-mainnet.vercel.app</b><br>
+✅ API Key: <b>fkjhvw... (mainnet key mới)</b><br>
+✅ Mode: <b id="modeText">SANDBOX = Pay Pi TEST (PCT yêu cầu)</b><br>
+✅ Current URL: <span id="curUrl" style="color:#0ff">đang tải...</span><br>
+✅ Host: <span id="curHost" style="color:#0ff"></span>
+</div>
+
 <button id="btnLogin">1. ĐĂNG NHẬP PI (SANDBOX)</button>
 <button id="btnPay">2. BẮN 5 UID MAINNET (TEST PAY)</button>
+
 <div id="log">Sẵn sàng MAINNET - Đang ở chế độ SANDBOX (Pay Pi Test)...</div>
+
 <script>
 const Pi=window.Pi;
-// QUAN TRỌNG NHẤT: Con mainnet nhưng bắt buộc bật sandbox để pay Pi TEST theo yêu cầu PCT
+// QUAN TRỌNG: Con mainnet nhưng bật sandbox để pay Pi TEST
 Pi.init({version:"2.0", sandbox:true});
+
+// HIỆN URL NGAY ĐỂ XÁC MINH 100% LÀ CON MAINNET
+document.getElementById('curUrl').textContent = window.location.href;
+document.getElementById('curHost').textContent = window.location.hostname;
+document.getElementById('modeText').textContent = "SANDBOX = Pay Pi TEST cho App MAINNET";
 
 const TARGET_UIDS=[
 {username:"nguyenanhtuan113113",uid:"657c1562-9472-4013-a76c-134404310717"},
@@ -31,9 +58,36 @@ const TARGET_UIDS=[
 {username:"thuongsheva01",uid:"13eb4a7e-be36-42cc-9c4a-61dbd7d9359f"},
 {username:"dttngan123",uid:"e668ffbf-8de9-42c3-a918-b3ffd13ba9ce"}
 ];
-function addLog(m){let el=document.getElementById('log');el.textContent+="\n["+new Date().toLocaleTimeString()+"] "+m;el.scrollTop=el.scrollHeight}
-document.getElementById('btnLogin').onclick=async()=>{try{addLog("🔄 Xác thực Pi SANDBOX cho App MAINNET...");let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});addLog("✅ LOGIN SANDBOX (cho App MAINNET): "+auth.user.uid)}catch(e){addLog("❌ LỖI: "+e.message)}};
-document.getElementById('btnPay').onclick=async()=>{addLog("🚀 BẮT ĐẦU BẮN 5 UID MAINNET - PAY TEST...");for(let i=0;i<TARGET_UIDS.length;i++){let u=TARGET_UIDS[i];addLog(`⏳ [${i+1}/5] @${u.username}`);try{let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});let res=await r.json();if(r.ok)addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG TEST PAY! ${JSON.stringify(res)}`);else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`)}catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}await new Promise(r=>setTimeout(r,1500))}addLog("🎉 XONG BATCH MAINNET - SANDBOX PAY TEST!")};
+
+function addLog(m){
+  let el=document.getElementById('log');
+  el.textContent+="\n["+new Date().toLocaleTimeString()+"] "+m;
+  el.scrollTop=el.scrollHeight;
+}
+
+document.getElementById('btnLogin').onclick=async()=>{
+  try{
+    addLog("🔄 Xác thực Pi SANDBOX cho App MAINNET: "+window.location.hostname);
+    let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});
+    addLog("✅ LOGIN SANDBOX (cho App MAINNET): "+auth.user.uid+" @"+auth.user.username);
+  }catch(e){addLog("❌ LỖI: "+e.message)}
+};
+
+document.getElementById('btnPay').onclick=async()=>{
+  addLog("🚀 BẮT ĐẦU BẮN 5 UID MAINNET - DOMAIN: "+window.location.hostname+" - PAY TEST...");
+  for(let i=0;i<TARGET_UIDS.length;i++){
+    let u=TARGET_UIDS[i];
+    addLog(`⏳ [${i+1}/5] @${u.username} (${u.uid.substring(0,8)}...)`);
+    try{
+      let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});
+      let res=await r.json();
+      if(r.ok) addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG MAINNET TEST PAY! ${JSON.stringify(res)}`);
+      else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`);
+    }catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}
+    await new Promise(r=>setTimeout(r,1200));
+  }
+  addLog("🎉 XONG BATCH MAINNET - SANDBOX PAY TEST! Domain: "+window.location.hostname);
+};
 </script>
 </body>
 </html>
