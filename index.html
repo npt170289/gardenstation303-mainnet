@@ -1,93 +1,196 @@
-<!-- GARDEN STATION 303 - MAINNET BUILD + SANDBOX ENABLED v5 - FIX XÁC MINH -->
 <!DOCTYPE html>
-<html>
+<html lang="vi" class="scroll-smooth">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garden Station 303 - MAINNET - SANDBOX</title>
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<style>
-/* FIX 3 DÒNG CHỒNG NHAU: Đẩy body xuống để tránh header Pi Browser */
-body{font-family:monospace;background:#0a0a0a;color:#0f0;padding:15px;padding-top:50px;margin:0}
-h2{margin-top:10px;font-size:18px;line-height:1.4}
-h2 span.main{color:#fff;background:red;padding:3px 8px;border-radius:4px}
-h2 span.test{color:#000;background:#0f0;padding:3px 8px;border-radius:4px;margin-left:5px}
-button{padding:12px 18px;margin:8px 5px;font-size:15px;cursor:pointer;font-weight:bold;border-radius:6px}
-#verify{border:1px dashed #ff0;background:#1a1a00;color:#ff0;padding:10px;margin:12px 0;font-size:12px;border-radius:6px;word-break:break-all}
-#verify b{color:#fff}
-#log{white-space:pre-wrap;background:#000;padding:12px;border:1px solid #0f0;height:420px;overflow:auto;font-size:12px;border-radius:6px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garden Station 303</title>
+  <!-- Tailwind CSS CDN (Giúp trang web đẹp sẵn mà không cần file CSS phụ) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white">
 
-<!-- CHỈ ĐỂ 1 DÒNG DUY NHẤT, KHÔNG ĐỂ 3 DÒNG GARDEN STATION 303 NỮA -->
-<h2>🚀 <span class="main">MAINNET</span> Batch A2U <span class="test">SANDBOX ENABLED</span></h2>
+  <!-- 1. THANH MENU ĐẦU TRANG -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">
+        Garden Station 303
+      </a>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+        <a href="#hero" class="hover:text-emerald-400 transition">Trang chủ</a>
+        <a href="#about" class="hover:text-emerald-400 transition">Không gian</a>
+        <a href="#menu" class="hover:text-emerald-400 transition">Menu & Dịch vụ</a>
+        <a href="#gallery" class="hover:text-emerald-400 transition">Thư viện</a>
+        <a href="#contact" class="hover:text-emerald-400 transition">Liên hệ</a>
+      </nav>
+      <div>
+        <a href="#contact" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-full text-sm font-medium transition shadow-lg shadow-emerald-900/30">
+          Đặt bàn ngay
+        </a>
+      </div>
+    </div>
+  </header>
 
-<p style="color:#aaa;font-size:12px;margin:5px 0">App MAINNET - Pay Pi TEST - 5 UID Chuẩn</p>
+  <!-- 2. PHẦN BANNER CHÍNH (HERO) -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-40">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-10"></div>
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2000" alt="Garden Background" class="w-full h-full object-cover">
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <span class="inline-block py-1.5 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-6">
+        Không gian xanh giữa lòng đô thị
+      </span>
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+        Trải nghiệm bình yên tại <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Garden Station 303</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Nơi hội tụ giữa không gian thiên nhiên trong lành, cà phê đậm vị và những khoảnh khắc thư giãn tuyệt vời cùng bạn bè và người thân.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#menu" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-4 rounded-xl transition shadow-lg shadow-emerald-600/30 text-center">
+          Khám phá Menu
+        </a>
+        <a href="#about" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-medium px-8 py-4 rounded-xl transition text-center">
+          Về chúng tôi
+        </a>
+      </div>
+    </div>
+  </section>
 
-<!-- KHUNG XÁC MINH 100% LÀ CON MAINNET NÀY -->
-<div id="verify">
-<b>🔍 XÁC MINH ĐANG PAY CHO CON NÀO:</b><br>
-✅ App ID: <b>garden-station-303-fdkp</b> (MAINNET)<br>
-✅ Build: <b>gardenstation303-mainnet.vercel.app</b><br>
-✅ API Key: <b>fkjhvw... (mainnet key mới)</b><br>
-✅ Mode: <b id="modeText">SANDBOX = Pay Pi TEST (PCT yêu cầu)</b><br>
-✅ Current URL: <span id="curUrl" style="color:#0ff">đang tải...</span><br>
-✅ Host: <span id="curHost" style="color:#0ff"></span>
-</div>
+  <!-- 3. PHẦN GIỚI THIỆU KHÔNG GIAN -->
+  <section id="about" class="py-24 bg-slate-900/50 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
+            Không gian mở, hòa mình vào thiên nhiên xanh mát
+          </h2>
+          <p class="text-slate-300 mb-6 leading-relaxed">
+            Garden Station 303 được thiết kế theo phong cách sinh thái hiện đại, kết hợp hài hòa giữa ánh sáng tự nhiên, cây xanh rợp bóng và những góc ngồi riêng tư, ấm cúng.
+          </p>
+          <ul class="space-y-4 text-slate-300 mb-8">
+            <li class="flex items-start space-x-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">✓</span>
+              <span>Khu vực vườn ngoài trời thoáng đãng, nhiều cây xanh.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">✓</span>
+              <span>Khu vực phòng lạnh yên tĩnh thích hợp làm việc và đọc sách.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">✓</span>
+              <span>Thực đơn đa dạng từ cà phê đặc sản đến bánh ngọt thủ công.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800" alt="Cafe space" class="rounded-2xl object-cover h-64 w-full shadow-lg">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=800" alt="Garden view" class="rounded-2xl object-cover h-64 w-full shadow-lg mt-8">
+        </div>
+      </div>
+    </div>
+  </section>
 
-<button id="btnLogin">1. ĐĂNG NHẬP PI (SANDBOX)</button>
-<button id="btnPay">2. BẮN 5 UID MAINNET (TEST PAY)</button>
+  <!-- 4. THỰC ĐƠN NỔI BẬT -->
+  <section id="menu" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Thực đơn nổi bật</h2>
+        <p class="text-slate-400">Những món thức uống và bánh ngọt được pha chế tỉ mỉ từ nguyên liệu tươi ngon nhất.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Món 1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600" alt="Coffee" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="font-bold text-lg">Cà phê trứng 303</h3>
+              <span class="text-emerald-400 font-bold">45.000đ</span>
+            </div>
+            <p class="text-slate-400 text-sm">Hương vị truyền thống kết hợp lớp kem trứng béo ngậy, thơm phức.</p>
+          </div>
+        </div>
+        <!-- Món 2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition">
+          <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&q=80&w=600" alt="Tea" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="font-bold text-lg">Trà thảo mộc thanh xuân</h3>
+              <span class="text-emerald-400 font-bold">50.000đ</span>
+            </div>
+            <p class="text-slate-400 text-sm">Trà hoa cúc, táo đỏ và kỷ tử giúp thanh lọc cơ thể, thư giãn tinh thần.</p>
+          </div>
+        </div>
+        <!-- Món 3 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-emerald-500/50 transition">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=600" alt="Cake" class="h-48 w-full object-cover">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="font-bold text-lg">Bánh mousse chanh dây</h3>
+              <span class="text-emerald-400 font-bold">55.000đ</span>
+            </div>
+            <p class="text-slate-400 text-sm">Vị chua ngọt thanh mát, lớp bánh mềm mịn tan ngay trong miệng.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div id="log">Sẵn sàng MAINNET - Đang ở chế độ SANDBOX (Pay Pi Test)...</div>
+  <!-- 5. THƯ VIỆN HÌNH ẢNH -->
+  <section id="gallery" class="py-24 bg-slate-900/50 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Góc ảnh Garden Station 303</h2>
+        <p class="text-slate-400">Khoảnh khắc bình yên và những góc check-in tuyệt đẹp tại trạm dừng chân.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=500" alt="Gallery 1" class="rounded-xl object-cover h-48 sm:h-64 w-full shadow-md hover:scale-105 transition duration-300">
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=500" alt="Gallery 2" class="rounded-xl object-cover h-48 sm:h-64 w-full shadow-md hover:scale-105 transition duration-300">
+        <img src="https://images.unsplash.com/photo-1507133754945-2bc83861f224?auto=format&fit=crop&q=80&w=500" alt="Gallery 3" class="rounded-xl object-cover h-48 sm:h-64 w-full shadow-md hover:scale-105 transition duration-300">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=500" alt="Gallery 4" class="rounded-xl object-cover h-48 sm:h-64 w-full shadow-md hover:scale-105 transition duration-300">
+      </div>
+    </div>
+  </section>
 
-<script>
-const Pi=window.Pi;
-// QUAN TRỌNG: Con mainnet nhưng bật sandbox để pay Pi TEST
-Pi.init({version:"2.0", sandbox:true});
+  <!-- 6. LIÊN HỆ & ĐẶT BÀN -->
+  <section id="contact" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-3xl font-bold mb-4">Ghé thăm Garden Station 303</h2>
+          <p class="text-slate-400 mb-8">Chúng tôi luôn sẵn sàng đón tiếp bạn vào tất cả các ngày trong tuần.</p>
+          <div class="space-y-4 text-slate-300">
+            <p class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">📍 Địa chỉ:</span> <span>303 Đường Cây Xanh, Phường Thạnh Mỹ, TP. Hồ Chí Minh</span></p>
+            <p class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">⏰ Giờ mở cửa:</span> <span>07:00 - 22:00 (Thứ Hai - Chủ Nhật)</span></p>
+            <p class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">☎️ Hotline:</span> <span>0903 303 303</span></p>
+          </div>
+        </div>
+        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đặt bàn! Chúng tôi sẽ liên hệ lại sớm nhất.');">
+          <h3 class="text-xl font-bold mb-2">Đặt bàn nhanh</h3>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Họ tên</label>
+            <input type="text" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500" placeholder="Nguyễn Văn A">
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Số điện thoại</label>
+            <input type="tel" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500" placeholder="0912345678">
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Ghi chú (Số người, thời gian...)</label>
+            <textarea rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-emerald-500" placeholder="Đặt bàn cho 4 người vào lúc 15:00..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/30">
+            Gửi yêu cầu đặt bàn
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
 
-// HIỆN URL NGAY ĐỂ XÁC MINH 100% LÀ CON MAINNET
-document.getElementById('curUrl').textContent = window.location.href;
-document.getElementById('curHost').textContent = window.location.hostname;
-document.getElementById('modeText').textContent = "SANDBOX = Pay Pi TEST cho App MAINNET";
+  <!-- CHÂN TRANG -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-8 text-center text-slate-500 text-sm">
+    <p>&copy; 2026 Garden Station 303. All rights reserved.</p>
+  </footer>
 
-const TARGET_UIDS=[
-{username:"nguyenanhtuan113113",uid:"657c1562-9472-4013-a76c-134404310717"},
-{username:"thuongsheva",uid:"70ea2ff5-c5ef-4dd2-a934-d8c73e280696"},
-{username:"phithuong07",uid:"0f8fdab1-75de-471e-a09f-896652b263d6"},
-{username:"thuongsheva01",uid:"13eb4a7e-be36-42cc-9c4a-61dbd7d9359f"},
-{username:"dttngan123",uid:"e668ffbf-8de9-42c3-a918-b3ffd13ba9ce"}
-];
-
-function addLog(m){
-  let el=document.getElementById('log');
-  el.textContent+="\n["+new Date().toLocaleTimeString()+"] "+m;
-  el.scrollTop=el.scrollHeight;
-}
-
-document.getElementById('btnLogin').onclick=async()=>{
-  try{
-    addLog("🔄 Xác thực Pi SANDBOX cho App MAINNET: "+window.location.hostname);
-    let auth=await Pi.authenticate(['username','payments'],(p)=>{addLog("Incomplete: "+p.identifier)});
-    addLog("✅ LOGIN SANDBOX (cho App MAINNET): "+auth.user.uid+" @"+auth.user.username);
-  }catch(e){addLog("❌ LỖI: "+e.message)}
-};
-
-document.getElementById('btnPay').onclick=async()=>{
-  addLog("🚀 BẮT ĐẦU BẮN 5 UID MAINNET - DOMAIN: "+window.location.hostname+" - PAY TEST...");
-  for(let i=0;i<TARGET_UIDS.length;i++){
-    let u=TARGET_UIDS[i];
-    addLog(`⏳ [${i+1}/5] @${u.username} (${u.uid.substring(0,8)}...)`);
-    try{
-      let r=await fetch('/api/a2u',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:u.uid,username:u.username,amount:1})});
-      let res=await r.json();
-      if(r.ok) addLog(`✅ [${i+1}/5] @${u.username} THÀNH CÔNG MAINNET TEST PAY! ${JSON.stringify(res)}`);
-      else addLog(`❌ [${i+1}/5] THẤT BẠI: ${JSON.stringify(res)}`);
-    }catch(err){addLog(`❌ Lỗi mạng: ${err.message}`)}
-    await new Promise(r=>setTimeout(r,1200));
-  }
-  addLog("🎉 XONG BATCH MAINNET - SANDBOX PAY TEST! Domain: "+window.location.hostname);
-};
-</script>
 </body>
 </html>
