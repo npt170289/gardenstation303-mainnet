@@ -1,0 +1,12 @@
+{
+  "caption": "Giá món có thể sai lệch 1 chút với diễn biến thị trường - GIÁ CHƯA GỒM THUẾ VAT + Phí dịch vụ",
+  "hotline": "0399 035 303",
+  "categories": [
+    {
+      "name": "Gà Tre",
+      "items": [
+        {"name": "Gà Tre Hấp Hành Gừng", "price": "319K", "vat": "CHƯA VAT"}
+      ]
+    }
+  ]
+}
