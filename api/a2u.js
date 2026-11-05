@@ -3,10 +3,9 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({error: 'Method not allowed'});
   
   const { uid, username, amount } = req.body;
-  const PI_API_KEY = process.env.PI_API_KEY; // Nhớ set PI_API_KEY = fkjhvw... trong Vercel Settings -> Environment Variables
+  const PI_API_KEY = process.env.PI_API_KEY;
   
   try {
-    // Tạo payment MAINNET
     const response = await fetch('https://api.minepi.com/v2/payments', {
       method: 'POST',
       headers: {
