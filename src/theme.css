@@ -1,0 +1,29 @@
+:root {
+    --bg: #05080f;
+    --card: #0f172a;
+    --card2: #111827;
+    --gold: #d4af37;
+    --purple: #a855f7;
+    --red: #ef4444;
+    --yellow: #facc15;
+    --green: #22c55e;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.6);
+}
