@@ -1,0 +1,462 @@
+{
+ "zone": "drinks",
+ "count": 65,
+ "filterCount": 65,
+ "items": [
+  [
+   "d1",
+   "Nước Suối",
+   "126K",
+   13,
+   "d"
+  ],
+  [
+   "d2",
+   "Coca Cola / Sprite",
+   "69K",
+   13,
+   "d"
+  ],
+  [
+   "d3",
+   "Bò Húc / Sting",
+   "79K",
+   13,
+   "d"
+  ],
+  [
+   "d4",
+   "Trà Đào / Trà Vải",
+   "79K",
+   13,
+   "d"
+  ],
+  [
+   "d5",
+   "Nước Ép Cam Tươi",
+   "89K",
+   13,
+   "d"
+  ],
+  [
+   "d6",
+   "Soda Chanh",
+   "89K",
+   13,
+   "d"
+  ],
+  [
+   "d7",
+   "Beer Heineken Lon",
+   "99K",
+   13,
+   "d"
+  ],
+  [
+   "d8",
+   "Beer Tiger Bạc",
+   "89K",
+   13,
+   "d"
+  ],
+  [
+   "d9",
+   "Beer Budweiser",
+   "109K",
+   13,
+   "d"
+  ],
+  [
+   "d10",
+   "Beer Hoegaarden",
+   "129K",
+   13,
+   "d"
+  ],
+  [
+   "d11",
+   "Rượu Soju Hàn Quốc",
+   "199K",
+   13,
+   "d"
+  ],
+  [
+   "d12",
+   "Rượu Vang Đà Lạt",
+   "299K",
+   13,
+   "d"
+  ],
+  [
+   "d13",
+   "Whisky Ballantine's",
+   "599K",
+   13,
+   "d"
+  ],
+  [
+   "d14",
+   "Vodka Absolut",
+   "699K",
+   13,
+   "d"
+  ],
+  [
+   "d15",
+   "Chivas 12",
+   "1.199.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d16",
+   "Johnnie Walker Black",
+   "1.299.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d17",
+   "Hennessy VS",
+   "1.899.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d18",
+   "Moët & Chandon Brut",
+   "2.199.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d19",
+   "Dom Pérignon Vintage",
+   "2.616.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d20",
+   "Beer Tháp Heineken Silver 2L",
+   "369K",
+   13,
+   "d"
+  ],
+  [
+   "d21",
+   "Heineken Heineken Silver Lon 330ml",
+   "135K",
+   13,
+   "d"
+  ],
+  [
+   "d22",
+   "Heineken Silver Lon 250ml",
+   "132K",
+   13,
+   "d"
+  ],
+  [
+   "d23",
+   "Heineken Aluminium Silver",
+   "179K",
+   13,
+   "d"
+  ],
+  [
+   "d24",
+   "Tiger Tiger Crystal Lon 330ml",
+   "135K",
+   13,
+   "d"
+  ],
+  [
+   "d25",
+   "Tiger Tiger Crystal Lon 250ml",
+   "132K",
+   13,
+   "d"
+  ],
+  [
+   "d26",
+   "Strongbow",
+   "133K",
+   13,
+   "d"
+  ],
+  [
+   "d27",
+   "Coca Pepsi",
+   "132K",
+   13,
+   "d"
+  ],
+  [
+   "d28",
+   "Sprite",
+   "132K",
+   13,
+   "d"
+  ],
+  [
+   "d29",
+   "Fanta",
+   "132K",
+   13,
+   "d"
+  ],
+  [
+   "d30",
+   "Soju Truyền Thống Đào Việt Quất",
+   "199K",
+   13,
+   "d"
+  ],
+  [
+   "d31",
+   "Rượu Mơ",
+   "199K",
+   13,
+   "d"
+  ],
+  [
+   "d32",
+   "Jagermeister SL1",
+   "2.152.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d33",
+   "Bushmills Black Bush SL1",
+   "2.312.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d34",
+   "The Macallan 12 Years Old Double Cask SL1",
+   "2.952.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d35",
+   "Bushmills Single Malt 12 Years Old SL1",
+   "2.952.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d36",
+   "1800 Cristalino SL1",
+   "2.952.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d37",
+   "The Macallan 15 Years Old Double Cask SL1",
+   "5.592.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d38",
+   "The Macallan 18 Years Old Double Cask SL1",
+   "13.592.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d39",
+   "Fogoso Oro SL1",
+   "1.832.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d40",
+   "Chivas 12 SL1",
+   "3.190.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d41",
+   "Chivas 18 SL1",
+   "3.192.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d42",
+   "Luc Belaire Luxe SL1",
+   "2.552.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d43",
+   "Hennessy VS SL1",
+   "2.552.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d44",
+   "Hennessy XO SL1",
+   "6.232.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d45",
+   "Martell XO SL1",
+   "8.792.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d46",
+   "Bumbu Original SL1",
+   "3.990.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d47",
+   "The Deacon Whisky SL1",
+   "3.690.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d48",
+   "Chivas 21 SL1",
+   "4.990.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d49",
+   "Fogoso Rosa SL1",
+   "2.290.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d50",
+   "Chivas 18 Blue SL1",
+   "4.690.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d51",
+   "Hennessy VSOP SL1",
+   "4.090.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d52",
+   "Dom Perignon Luminous SL1",
+   "13.990.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d53",
+   "Heineken 1 Thùng",
+   "2.616.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d54",
+   "Tiger 1 Thùng",
+   "2.616.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d55",
+   "Budweiser Lon",
+   "109K",
+   13,
+   "d"
+  ],
+  [
+   "d56",
+   "Budweiser 1 Thùng",
+   "2.616.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d57",
+   "Saigon Chill 1 Thùng",
+   "2.616.000VND",
+   13,
+   "d"
+  ],
+  [
+   "d58",
+   "Corona Chai",
+   "139K",
+   13,
+   "d"
+  ],
+  [
+   "d59",
+   "Pháo Hoa Party Bộ",
+   "169K",
+   13,
+   "d"
+  ],
+  [
+   "d60",
+   "Coca Nước Suối Lon",
+   "89K",
+   13,
+   "d"
+  ],
+  [
+   "d61",
+   "Yến Lọ",
+   "99K",
+   13,
+   "d"
+  ],
+  [
+   "d62",
+   "Trái Cây Dĩa",
+   "499K",
+   13,
+   "d"
+  ],
+  [
+   "d63",
+   "Snack Phần",
+   "69K",
+   13,
+   "d"
+  ],
+  [
+   "d64",
+   "Singsum Hộp",
+   "69K",
+   13,
+   "d"
+  ],
+  [
+   "d65",
+   "Thuốc Lá Gói",
+   "120K",
+   13,
+   "d"
+  ]
+ ]
+}

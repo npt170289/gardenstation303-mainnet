@@ -1,0 +1,385 @@
+{
+ "zone": "combo",
+ "count": 54,
+ "filterCount": 54,
+ "items": [
+  [
+   "cb1",
+   "Combo Beer Garden 01 - 1 Thùng Beer + 3 Món Lai Rai",
+   "3.990.000VND",
+   10,
+   "c"
+  ],
+  [
+   "cb2",
+   "Combo Ember VIP 02 - 1 Thùng Beer + 1 Gà Tre + 2 Lai Rai",
+   "3.990.000VND",
+   10,
+   "c"
+  ],
+  [
+   "cb3",
+   "Combo DJ Night 03 - 1 Thùng Beer + Hải Sản Sốt Thái + Lẩu Mini",
+   "3.990.000VND",
+   10,
+   "c"
+  ],
+  [
+   "cb4",
+   "Combo Pi Pioneers 04 - 1 Thùng Beer + Full Bàn Lai Rai VIP",
+   "3.990.000VND",
+   10,
+   "c"
+  ],
+  [
+   "cb5",
+   "Combo Vui Vẻ Thập Cẩm",
+   "899K",
+   10,
+   "c"
+  ],
+  [
+   "cb6",
+   "Đảo Hải Sản Kiểu Thái",
+   "489K",
+   10,
+   "c"
+  ],
+  [
+   "cb7",
+   "Combo Steak",
+   "619K",
+   10,
+   "c"
+  ],
+  [
+   "cb8",
+   "Combo Nướng",
+   "469K",
+   10,
+   "c"
+  ],
+  [
+   "cb9",
+   "Combo Khô Lai Rai",
+   "379K",
+   10,
+   "c"
+  ],
+  [
+   "cb10",
+   "Combo Khoai 303",
+   "189K",
+   10,
+   "c"
+  ],
+  [
+   "cb11",
+   "Combo Beer Heineken Silver Chai 330ml",
+   "4.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb12",
+   "Combo Beer Heineken Silver Lon 330ml",
+   "3.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb13",
+   "Combo Beer Heineken Silver Lon 250ml",
+   "3.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb14",
+   "Chivas 12 Set 1",
+   "4.090.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb15",
+   "Chivas 18 Blue Set 1",
+   "5.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb16",
+   "Chivas 18 Blue Set 2",
+   "10.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb17",
+   "Chivas 18 Blue Set 3",
+   "15.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb18",
+   "Royal Salute 21 Set 1",
+   "6.190.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb19",
+   "Royal Salute 21 Set 2",
+   "11.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb20",
+   "Jameson Set 1",
+   "3.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb21",
+   "Jameson Set 2",
+   "7.690.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb22",
+   "Jameson Set 3",
+   "11.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb23",
+   "The Glenlivet Founders Reserve Set 1",
+   "4.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb24",
+   "The Glenlivet Founders Reserve Set 2",
+   "10.290.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb25",
+   "The Glenlivet Founders Reserve Set 3",
+   "15.490.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb26",
+   "The Glenlivet 12YO Set 1",
+   "4.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb27",
+   "The Glenlivet 12YO Set 2",
+   "9.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb28",
+   "The Glenlivet 12YO Set 3",
+   "15.790.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb29",
+   "Luc Belaire Đen Set 1",
+   "4.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb30",
+   "Luc Belaire Đen Set 2",
+   "9.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb31",
+   "Luc Belaire Đen Set 3",
+   "15.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb32",
+   "Luc Belaire Trắng Set 1",
+   "4.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb33",
+   "Luc Belaire Trắng Set 2",
+   "9.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb34",
+   "Luc Belaire Trắng Set 3",
+   "15.890.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb35",
+   "Martell VSOP Set 1",
+   "5.190.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb36",
+   "Martell VSOP Set 2",
+   "8.880.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb37",
+   "Martell VSOP Set 3",
+   "12.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb38",
+   "Champagne G.H Mumm Set 1",
+   "5.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb39",
+   "Champagne G.H Mumm Set 2",
+   "10.490.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb40",
+   "Champagne G.H Mumm Set 3",
+   "15.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb41",
+   "Chivas 18 Set 1",
+   "5.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb42",
+   "Chivas 18 Set 2",
+   "9.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb43",
+   "Chivas 18 Set 3",
+   "13.280.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb44",
+   "Chivas Regal 18YO Signature Set 1",
+   "5.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb45",
+   "Chivas Regal 18YO Signature Set 2",
+   "9.390.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb46",
+   "Chivas Regal 18YO Signature Set 3",
+   "13.280.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb47",
+   "Martell Noblige Set 1",
+   "5.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb48",
+   "Martell Noblige Set 2",
+   "9.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb49",
+   "Martell Noblige Set 3",
+   "13.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb50",
+   "Martell XO Set 1",
+   "9.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb51",
+   "Martell XO Set 2",
+   "20.990.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb52",
+   "Martell XO Set 3",
+   "29.900.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb53",
+   "The Deacon Whisky Set 1",
+   "4.590.000VND",
+   11,
+   "c"
+  ],
+  [
+   "cb54",
+   "Bumbu Original Set 1",
+   "4.890.000VND",
+   11,
+   "c"
+  ]
+ ]
+}
