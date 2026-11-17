@@ -6,6 +6,25 @@
   <title>React Artifact</title>
   <link rel="stylesheet" href="css/main.css">
 </head>
+<script>
+// FIX iOS: ép tất cả video tự chạy (Safari chặn autoplay video do React vẽ ra)
+function iosPlayFix(){
+  document.querySelectorAll("video").forEach(function(v){
+    v.muted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){});
+  });
+}
+var __tries = 0;
+var __timer = setInterval(function(){
+  iosPlayFix();
+  if (++__tries >= 10) clearInterval(__timer);
+}, 500);
+document.addEventListener("touchstart", iosPlayFix, { once: true });
+document.addEventListener("click", iosPlayFix, { once: true });
+</script>
 <body>
 <div id="root"></div>
   
