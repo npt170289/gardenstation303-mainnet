@@ -9214,6 +9214,7 @@ var Ka = "public/videos/be-ao-den-nhay.mp4";
 var Ya = "public/videos/be-dancer-ao-hong.mp4";
 var Fa = "public/videos/be-quan-trang.mp4";
 var ba = "public/videos/khach-vay-den-nhay.mp4";
+var Qv="public/videos/fullvibe.mp4";
 var Ba = oe(mn(), 1),
   sZ = Symbol.for("react.element"),
   OZ = Symbol.for("react.fragment"),
@@ -9408,7 +9409,7 @@ function tp() {
                   src: _r,
                   alt: "Garden Station 303 Logo",
                   className:
-                    "w-full h-[520px] object-cover rounded-[20px] border border-white/[0.08] shadow-[0_0_40px_rgba(212,175,55,0.2)]",
+                    "w-full h-[360px] object-cover rounded-[20px] border border-white/[0.08] shadow-[0_0_40px_rgba(212,175,55,0.2)]",
                   style: { filter: "brightness(0.85)" },
                 }),
                 s("div", {
@@ -9516,37 +9517,8 @@ function tp() {
                 }),
               ],
             }),
-            s("div", {
-              className: "lg:w-[40%] flex flex-col gap-2",
-              children: [
-                R("img", {
-                  src: $r,
-                  alt: "Garden Station crowd",
-                  className:
-                    "w-full h-[320px] object-cover rounded-[16px] border border-white/[0.08]",
-                  style: { filter: "brightness(0.85)" },
-                }),
-                s("div", {
-                  className: "flex gap-2",
-                  children: [
-                    R("img", {
-                      src: Ap,
-                      alt: "Red stage",
-                      className:
-                        "w-1/2 h-[180px] object-cover rounded-[16px] border border-white/[0.08]",
-                      style: { filter: "brightness(0.85)" },
-                    }),
-                    R("img", {
-                      src: ep,
-                      alt: "White silver 3 girls",
-                      className:
-                        "w-1/2 h-[180px] object-cover rounded-[16px] border border-white/[0.08]",
-                      style: { filter: "brightness(0.85)" },
-                    }),
-                  ],
-                }),
-              ],
-            }),
+            s("div",{className:"lg:w-[40%] flex flex-col gap-2",children:[R("video",{src:Qv,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,preload:"metadata",className:"w-full h-[360px] object-cover rounded-[16px] border border-white/[0.08] bg-[#111]",style:{filter:"brightness(0.85)"}})]})
+
           ],
         }),
       }),
