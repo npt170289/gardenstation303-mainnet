@@ -9542,19 +9542,39 @@ function tp() {
           R("div", {
             className:
               "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-3",
-            children: GZ.map((z, a) =>
-              R(
+            children: GZ.map((z, a) => {
+              const isFly = (a + 1) % 2 === 0;
+              const img = R(
                 "img",
                 {
                   src: z,
                   alt: `Gallery ${a + 1}`,
-                  className:
-                    "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
-                  style: { filter: "brightness(0.85) contrast(1.1)" },
+                  className: isFly
+                    ? "w-full h-[320px] object-cover"
+                    : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
+                  style: {
+                    filter: "brightness(0.85) contrast(1.1)",
+                    ...(isFly
+                      ? {
+                          animation:
+                            "garden-flycam 8s ease-in-out infinite alternate",
+                        }
+                      : {}),
+                  },
                 },
                 a,
-              ),
-            ),
+              );
+              if (!isFly) return img;
+              return R(
+                "div",
+                {
+                  className:
+                    "overflow-hidden rounded-[12px] border border-white/[0.08]",
+                  children: img,
+                },
+                a,
+              );
+            }),
           }),
         ],
       }),
