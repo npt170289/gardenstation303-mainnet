@@ -32,8 +32,25 @@
   // - Hero phát khi hero hiển thị; 4 clips phát khi cuộn tới; ra khỏi tầm nhìn thì tạm dừng,
   //   cuộn lại thì phát tiếp. Tương thích iOS Safari 12.1+ và Android Chrome.
   // - Chạm vào video hero (fullvibe) để bật/tắt tiếng. 4 clips không có track tiếng nên không gắn.
+  // - GIẢM NHẸ TRÌNH DUYỆT NHÚNG iOS (Zalo...): nếu đang ở trong app (UA iOS có "Mobile/"
+  //   nhưng KHÔNG có "Version/" — Safari thật luôn có "Version/"), KHÔNG tự chạy video khi
+  //   cuộn tới mà chuyển sang chạm-để-phát, để khỏi bung fullscreen tự động. Chỉ hiện khung
+  //   hình đầu + gợi ý mở bằng Safari. Chạm để phát vẫn có thể bung fullscreen (do WebView
+  //   của app, web không ép được) — chấp nhận vì do người dùng chủ động.
   (function () {
     var seen = new WeakSet();
+
+    // Nhận diện trình duyệt nhúng iOS (Zalo, Messenger, Facebook...).
+    // UA thật của Zalo đã xác minh trên iPhone 13 Pro Max (2026-11-18):
+    //   "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15
+    //    (KHTML, like Gecko) Mobile/15E148 Safari/604.1"
+    // -> CÓ "Safari/" nhưng KHÔNG có "Version/". Safari thật luôn có "Version/"
+    //    ("...Version/27.2 Mobile/15E148 Safari/604.1"). Tín hiệu đúng là VẮNG
+    //    "Version/", không phải vắng "Safari/" (bản v3 dùng sai tín hiệu nên không kích hoạt).
+    // - Loại trừ trình duyệt bên thứ ba trên iOS (Chrome CriOS, Firefox FxiOS, Edge EdgiOS):
+    //   chúng tự bật inline playback nên không cần giảm nhẹ.
+    var ua = navigator.userAgent || "";
+    var inAppIOS = /iPhone|iPad|iPod/.test(ua) && ua.indexOf("Mobile/") !== -1 && ua.indexOf("Version/") === -1 && ua.indexOf("CriOS/") === -1 && ua.indexOf("FxiOS/") === -1 && ua.indexOf("EdgiOS/") === -1;
 
     function isHero(v) {
       var s = v.currentSrc || v.src || "";
@@ -52,6 +69,14 @@
             if (p && p.catch) p.catch(function () {});
           }
         });
+      } else if (inAppIOS) {
+        // Trình duyệt nhúng iOS: chỉ phát khi người dùng chạm trực tiếp vào video (không tự chạy).
+        v.addEventListener("click", function () {
+          if (v.paused) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        });
       }
       io.observe(v);
     }
@@ -60,8 +85,11 @@
       entries.forEach(function (en) {
         var v = en.target;
         if (en.isIntersecting) {
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
+          // Trình duyệt nhúng iOS: không tự chạy khi cuộn tới (tránh bung fullscreen tự động).
+          if (!inAppIOS) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          }
         } else {
           v.pause();
         }
@@ -85,7 +113,25 @@
     else document.addEventListener("DOMContentLoaded", scan);
     window.addEventListener("load", scan);
 
+    // Trình duyệt nhúng iOS: hiện gợi ý mở bằng Safari (chỉ trong môi trường này, không hiện ở Safari/Android).
+    function showInAppHint() {
+      if (document.getElementById("garden303-inapp-hint")) return;
+      var bar = document.createElement("div");
+      bar.id = "garden303-inapp-hint";
+      bar.style.cssText = "background:#111827;color:#d4af37;font-size:12px;line-height:1.5;text-align:center;padding:8px 32px 8px 12px;border-bottom:1px solid rgba(212,175,55,.4);position:relative;";
+      bar.textContent = "Bạn đang xem trong ứng dụng chat — bấm dấu ••• rồi chọn “Mở bằng Safari” để xem video ngay trong trang.";
+      var x = document.createElement("span");
+      x.textContent = "✕";
+      x.style.cssText = "position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:#9ca3af;font-size:14px;";
+      x.onclick = function () { bar.remove(); };
+      bar.appendChild(x);
+      var parent = document.body || document.documentElement;
+      parent.insertBefore(bar, parent.firstChild);
+    }
+    if (inAppIOS) showInAppHint();
+
     // Dự phòng khi iPhone bật Tiết kiệm pin (chặn autoplay): chạm lần đầu sẽ phát các video đang hiển thị.
+    // Không áp dụng trong trình duyệt nhúng iOS (ở đó video chỉ phát khi chạm trực tiếp vào video).
     function onFirstGesture() {
       document.querySelectorAll("video").forEach(function (v) {
         if (v.paused) {
@@ -97,8 +143,10 @@
         }
       });
     }
-    document.addEventListener("touchstart", onFirstGesture, { once: true });
-    document.addEventListener("click", onFirstGesture, { once: true });
+    if (!inAppIOS) {
+      document.addEventListener("touchstart", onFirstGesture, { once: true });
+      document.addEventListener("click", onFirstGesture, { once: true });
+    }
   })();
   </script>
 
