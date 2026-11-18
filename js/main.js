@@ -9426,16 +9426,26 @@ function tp() {
                   ],
                 }),
                 s("p", {
-                  className: "mt-2 text-[0.9rem] leading-[1.5] text-white",
-                  children: [
-                    "Rừng nhiệt đới giữa lòng Gò Vấp. Bia lạnh, ghế nệm sâu, DJ hot, dancer, PR pro. ",
-                    R("span", {
-                      className: "text-[#d4af37] font-bold",
-                      children:
-                        "303 Phạm Văn Đồng, P. Hạnh Thông - 17:00 tới 03:00",
-                    }),
-                  ],
-                }),
+  className: "mt-2 text-[0.9rem] leading-[1.5] text-white",
+  children: [
+    R("span", {
+      className: "font-bold",
+      style: { display: "block" },
+      children: "TỔ HỢP GIẢI TRÍ VỀ ĐÊM ĐẲNG CẤP NHẤT GÒ VẤP",
+    }),
+    R("span", {
+      className: "text-[#d4af37]",
+      style: { display: "block" },
+      children: "古芝最顶级的夜间娱乐综合体",
+    }),
+    R("span", {
+      style: { display: "block" },
+      children: "THE PREMIER NIGHTLIFE ENTERTAINMENT COMPLEX IN GÒ VẤP",
+    }),
+  ],
+}),
+
+
                 s("div", {
                   className: "mt-3 flex flex-wrap gap-2",
                   children: [
