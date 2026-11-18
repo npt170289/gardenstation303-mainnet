@@ -6,25 +6,7 @@
   <title>React Artifact</title>
   <link rel="stylesheet" href="css/main.css">
 </head>
-<script>
-// FIX iOS: ép tất cả video tự chạy (Safari chặn autoplay video do React vẽ ra)
-function iosPlayFix(){
-  document.querySelectorAll("video").forEach(function(v){
-    v.muted = true;
-    v.setAttribute("muted", "");
-    v.setAttribute("playsinline", "");
-    var p = v.play();
-    if (p && p.catch) p.catch(function(){});
-  });
-}
-var __tries = 0;
-var __timer = setInterval(function(){
-  iosPlayFix();
-  if (++__tries >= 10) clearInterval(__timer);
-}, 500);
-document.addEventListener("touchstart", iosPlayFix, { once: true });
-document.addEventListener("click", iosPlayFix, { once: true });
-</script>
+
 <body>
 <div id="root"></div>
   
@@ -43,5 +25,67 @@ document.addEventListener("click", iosPlayFix, { once: true });
   <script src="js/clips.js"></script>
   <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if(((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host)||u.protocol==="mailto:"||u.protocol==="tel:"||u.protocol==="sms:"){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
   <script type="application/json" data-clippy-inline-media-manifest="1">{"version":1,"slots":[]}</script>
+  <script>
+  // Phát video theo vùng nhìn thấy (IntersectionObserver).
+  // - Không gọi play() liên tục, không ép muted: giữ nguyên trạng thái muted của từng video
+  //   (4 clips đã muted trong main.js; hero muted trong main.js).
+  // - Hero phát khi hero hiển thị; 4 clips phát khi cuộn tới; ra khỏi tầm nhìn thì tạm dừng,
+  //   cuộn lại thì phát tiếp. Tương thích iOS Safari 12.1+ và Android Chrome.
+  (function () {
+    var seen = new WeakSet();
+
+    function hookVideo(v) {
+      if (!v || seen.has(v)) return;
+      seen.add(v);
+      try { v.preload = "auto"; } catch (e) {}
+      io.observe(v);
+    }
+
+    function onChange(entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }
+
+    if (!("IntersectionObserver" in window)) return; // trình duyệt quá cũ: giữ autoplay mặc định của React
+
+    var io = new IntersectionObserver(onChange, { threshold: 0.25, rootMargin: "100px 0px" });
+
+    function scan() {
+      document.querySelectorAll("video").forEach(hookVideo);
+    }
+
+    // Video do React vẽ ra sau khi tải trang -> theo dõi DOM để gắn observer ngay khi video xuất hiện.
+    if ("MutationObserver" in window) {
+      new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+    }
+
+    if (document.readyState !== "loading") scan();
+    else document.addEventListener("DOMContentLoaded", scan);
+    window.addEventListener("load", scan);
+
+    // Dự phòng khi iPhone bật Tiết kiệm pin (chặn autoplay): chạm lần đầu sẽ phát các video đang hiển thị.
+    function onFirstGesture() {
+      document.querySelectorAll("video").forEach(function (v) {
+        if (v.paused) {
+          var r = v.getBoundingClientRect();
+          if (r.bottom > 0 && r.top < window.innerHeight) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        }
+      });
+    }
+    document.addEventListener("touchstart", onFirstGesture, { once: true });
+    document.addEventListener("click", onFirstGesture, { once: true });
+  })();
+  </script>
+
 </body>
 </html>
