@@ -9254,7 +9254,6 @@ var SZ = window.__MENU__ || [],
     { key: "DRINKS", label: "DRINKS" },
   ],
   DZ = [
-    "All",
     "Gà Tre",
     "Lai Rai",
     "Lúa Mạch",
@@ -9269,6 +9268,7 @@ var SZ = window.__MENU__ || [],
     "Combo Rượu",
     "Cocktail",
     "Drinks",
+    "All",
   ],
   GZ = [Ca, xa, Na, va, Qa, Ja, Sa, Ua, Wa, Oa, Pa],
   an = "https://onggialinhic5930.pinet.com",
@@ -9276,7 +9276,7 @@ var SZ = window.__MENU__ || [],
 function tp() {
   let [A, e] = Ze.useState(!1),
     [n, l] = Ze.useState("ALL"),
-    [t, u] = Ze.useState("All"),
+    [t, u] = Ze.useState("Gà Tre"),
     [r, p] = Ze.useState(""),
     [i, c] = Ze.useState(!1),
     [Z, o] = Ze.useState([
@@ -9614,12 +9614,6 @@ function tp() {
             className:
               "flex flex-col md:flex-row md:items-start justify-between gap-3",
             children: [
-              R("h2", {
-                className:
-                  "text-[#d4af37] text-[1.15rem] font-bold tracking-wide leading-tight",
-                children:
-                  "MENU 2 KHU - NEWSPACE EMBER + BEER GARDEN NGOÀI TRỜI",
-              }),
               R("div", {
                 className:
                   "text-[0.8rem] italic text-white bg-white/[0.05] border border-dashed border-white/20 rounded-[8px] px-2.5 py-1.5 max-w-[420px]",
@@ -9707,14 +9701,6 @@ function tp() {
                   children:
                     "Không có món trong khu vực này, quý khách vui lòng chọn khu khác ạ.",
                 }),
-            ],
-          }),
-          s("div", {
-            className: "mt-2 text-[0.7rem] text-[#6b7280]",
-            children: [
-              "Tổng ",
-              M.length,
-              " món • DARK NOT WHITE • Giá chưa VAT • Chỉ hotline ngoài menu: 0399 035 303",
             ],
           }),
         ],
