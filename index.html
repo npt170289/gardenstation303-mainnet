@@ -31,13 +31,28 @@
   //   (4 clips đã muted trong main.js; hero muted trong main.js).
   // - Hero phát khi hero hiển thị; 4 clips phát khi cuộn tới; ra khỏi tầm nhìn thì tạm dừng,
   //   cuộn lại thì phát tiếp. Tương thích iOS Safari 12.1+ và Android Chrome.
+  // - Chạm vào video hero (fullvibe) để bật/tắt tiếng. 4 clips không có track tiếng nên không gắn.
   (function () {
     var seen = new WeakSet();
+
+    function isHero(v) {
+      var s = v.currentSrc || v.src || "";
+      return s.indexOf("fullvibe") !== -1;
+    }
 
     function hookVideo(v) {
       if (!v || seen.has(v)) return;
       seen.add(v);
       try { v.preload = "auto"; } catch (e) {}
+      if (isHero(v)) {
+        v.addEventListener("click", function () {
+          v.muted = !v.muted;
+          if (v.paused) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        });
+      }
       io.observe(v);
     }
 
