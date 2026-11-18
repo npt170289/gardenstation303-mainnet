@@ -9320,7 +9320,7 @@ function tp() {
         a.includes("vip")
       )
         q =
-          "Dạ đặt bàn VIP quý khách vui lòng liên hệ hotline 0399 035 303 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
+          "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
       else if (
         a.includes("địa chỉ") ||
         a.includes("dia chi") ||
@@ -9330,7 +9330,7 @@ function tp() {
         a.includes("faq")
       )
         q =
-          "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: 0399 035 303 - Mr Thương. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
+          "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: Mr Thành 0971363121. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
       else if (
         a.includes("pi") ||
         a.includes("thanh toán") ||
@@ -9390,7 +9390,7 @@ function tp() {
                 R("div", {
                   className:
                     "bg-white text-black font-bold rounded-full px-4 py-2 text-[0.85rem] tracking-wide",
-                  children: "0399 035 303",
+                  children: "Mr Thành 0971363121",
                 }),
               ],
             }),
@@ -9722,12 +9722,12 @@ function tp() {
             }),
             R("p", {
               className: "mt-1 text-[0.85rem] text-[#d4af37] font-semibold",
-              children: "Hotline đặt bàn: 0399 035 303",
+              children: "Hotline đặt bàn: Mr Thành 0971363121",
             }),
             R("button", {
               onClick: () =>
                 p(
-                  "Cảm ơn quý khách! Đội ngũ Garden Station 303 sẽ liên hệ lại qua hotline 0399 035 303 để xác nhận đặt bàn VIP. Pioneers được giảm 10% bill ạ.",
+                  "Cảm ơn quý khách! Đội ngũ Garden Station 303 sẽ liên hệ lại qua Mr Thành 0971363121 để xác nhận đặt bàn VIP. Pioneers được giảm 10% bill ạ.",
                 ),
               className:
                 "mt-3 px-5 py-2.5 rounded-full font-bold text-white text-[0.85rem]",
@@ -9824,14 +9824,10 @@ function tp() {
               children: "Pi Network",
             }),
             " • ",
-            R("span", { className: "text-[#9ca3af]", children: "Chị" }),
-            " ",
             R("span", {
               className: "text-white font-bold",
-              children: "0399 035 303",
+              children: "Mr Thành 0971363121",
             }),
-            " ",
-            R("span", { className: "text-[#9ca3af]", children: "Mr Thương" }),
             " • ",
             R("span", {
               className: "text-white",
@@ -9964,7 +9960,7 @@ function tp() {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#22c55e]/30 text-white px-2 py-1 rounded-full",
                                 children:
-                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • 0399 035 303",
+                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • Mr Thành 0971363121",
                               }),
                               R("div", {
                                 className:
