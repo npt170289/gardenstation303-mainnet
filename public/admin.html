@@ -11,7 +11,12 @@
   h1 { font-size: 1.2rem; margin: 0 0 4px; }
   h1 span { background: linear-gradient(90deg, #d4af37, #22c55e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .sub { color: #9ca3af; font-size: 0.85rem; margin: 0 0 16px; }
-  .warn { background: #451a03; border: 1px solid #92400e; color: #fde68a; border-radius: 10px; padding: 10px 12px; font-size: 0.85rem; margin-bottom: 16px; }
+  .gate { background: #111827; border: 1px solid rgba(212,175,55,0.4); border-radius: 12px; padding: 16px; margin-bottom: 16px; max-width: 420px; }
+  .gate p { margin: 0 0 10px; color: #9ca3af; font-size: 0.85rem; }
+  .gate input { width: 100%; background: #0f172a; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.9rem; outline: none; margin-bottom: 10px; }
+  .gate input:focus { border-color: rgba(212,175,55,0.5); }
+  .gate button { background: linear-gradient(90deg, #ef4444, #22c55e); color: #fff; font-weight: 700; border: none; border-radius: 999px; padding: 10px 20px; font-size: 0.85rem; cursor: pointer; }
+  .gate .err { color: #fca5a5; font-size: 0.85rem; margin: 8px 0 0; display: none; }
   .bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
   .bar input { flex: 1; min-width: 200px; background: #111827; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.9rem; outline: none; }
   .bar input:focus { border-color: rgba(212,175,55,0.5); }
@@ -37,7 +42,13 @@
 <div class="wrap">
   <h1>Dashboard đặt bàn — <span>GARDEN STATION 303</span></h1>
   <p class="sub">Mới nhất lên đầu • Hotline: Mr Thành 0971363121</p>
-  <div class="warn">Chỉ dùng nội bộ — chưa có đăng nhập, sẽ thêm auth trước khi công khai.</div>
+  <div id="gate" class="gate">
+    <p>Trang nội bộ. Nhập mật khẩu quản trị để xem đặt bàn.</p>
+    <input id="adminKey" type="password" placeholder="Mật khẩu quản trị" autocomplete="off">
+    <button id="gateBtn" type="button">Vào dashboard</button>
+    <p id="gateErr" class="err">Sai mật khẩu, nhập lại.</p>
+  </div>
+  <div id="app" style="display:none">
   <div class="bar">
     <input id="phone" type="tel" placeholder="Tìm theo SĐT (vd 0971...)" autocomplete="off">
     <button id="searchBtn" type="button">Tìm</button>
@@ -58,14 +69,49 @@
     </thead>
     <tbody id="tbody"></tbody>
   </table>
+  </div>
 </div>
 <script>
 (function () {
+  // Mật khẩu quản trị chỉ giữ trong sessionStorage (đóng tab là mất),
+  // KHÔNG dùng localStorage — đúng quy tắc Phase 1 (database là xương sống,
+  // không lưu gì lâu dài ở trình duyệt).
+  var KEY = 'garden303-admin-key';
+  var gateEl = document.getElementById('gate');
+  var appEl = document.getElementById('app');
+  var keyEl = document.getElementById('adminKey');
+  var gateErrEl = document.getElementById('gateErr');
   var statusEl = document.getElementById('status');
   var tbl = document.getElementById('tbl');
   var tbody = document.getElementById('tbody');
   var phoneEl = document.getElementById('phone');
   var timer = null;
+
+  function getKey() {
+    try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; }
+  }
+  function setKey(k) {
+    try { sessionStorage.setItem(KEY, k); } catch (e) {}
+  }
+  function clearKey() {
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+  }
+  function showGate(msg) {
+    appEl.style.display = 'none';
+    gateEl.style.display = '';
+    if (msg) {
+      gateErrEl.textContent = msg;
+      gateErrEl.style.display = '';
+    } else {
+      gateErrEl.style.display = 'none';
+    }
+    keyEl.focus();
+  }
+  function showApp() {
+    gateEl.style.display = 'none';
+    gateErrEl.style.display = 'none';
+    appEl.style.display = '';
+  }
 
   function fmt(iso) {
     if (!iso) return '';
@@ -79,15 +125,23 @@
     });
   }
   function load() {
+    var key = getKey();
+    if (!key) { showGate(); return; }
     var phone = phoneEl.value.trim();
     var url = '/api/admin/bookings?limit=100' + (phone ? '&phone=' + encodeURIComponent(phone) : '');
     statusEl.textContent = 'Đang tải đặt bàn...';
     statusEl.className = 'status';
     tbl.style.display = 'none';
-    fetch(url)
-      .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, d: d }; }); })
+    fetch(url, { headers: { 'x-admin-key': key } })
+      .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, status: res.status, d: d }; }); })
       .then(function (r) {
+        if (r.status === 401) {
+          clearKey();
+          showGate('Sai mật khẩu, nhập lại.');
+          return;
+        }
         if (!r.ok || !r.d.success) throw new Error((r.d && r.d.error) || 'Lỗi máy chủ');
+        showApp();
         var rows = r.d.bookings || [];
         if (rows.length === 0) {
           statusEl.textContent = 'Chưa có đặt bàn nào' + (phone ? ' cho SĐT "' + phone + '"' : '') + '.';
@@ -112,6 +166,14 @@
         statusEl.className = 'status err';
       });
   }
+  document.getElementById('gateBtn').addEventListener('click', function () {
+    var k = keyEl.value.trim();
+    if (!k) { showGate('Nhập mật khẩu quản trị.'); return; }
+    setKey(k);
+    keyEl.value = '';
+    load();
+  });
+  keyEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') document.getElementById('gateBtn').click(); });
   document.getElementById('searchBtn').addEventListener('click', load);
   document.getElementById('reloadBtn').addEventListener('click', function () { phoneEl.value = ''; load(); });
   phoneEl.addEventListener('input', function () {
