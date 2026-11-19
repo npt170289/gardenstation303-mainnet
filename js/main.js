@@ -9254,7 +9254,6 @@ var SZ = window.__MENU__ || [],
     { key: "DRINKS", label: "DRINKS" },
   ],
   DZ = [
-    "All",
     "Gà Tre",
     "Lai Rai",
     "Lúa Mạch",
@@ -9269,14 +9268,18 @@ var SZ = window.__MENU__ || [],
     "Combo Rượu",
     "Cocktail",
     "Drinks",
+    "All",
   ],
   GZ = [Ca, xa, Na, va, Qa, Ja, Sa, Ua, Wa, Oa, Pa],
   an = "https://onggialinhic5930.pinet.com",
   lp = "Made with App Studio";
+// Session chat dùng chung cho cả phiên xem trang — để lưu lịch sử vào bảng chats.
+var GardenSessionId =
+  "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
 function tp() {
   let [A, e] = Ze.useState(!1),
     [n, l] = Ze.useState("ALL"),
-    [t, u] = Ze.useState("All"),
+    [t, u] = Ze.useState("Gà Tre"),
     [r, p] = Ze.useState(""),
     [i, c] = Ze.useState(!1),
     [Z, o] = Ze.useState([
@@ -9286,6 +9289,12 @@ function tp() {
       },
     ]),
     [I, V] = Ze.useState(""),
+    [bkName, setBkName] = Ze.useState(""),
+    [bkPhone, setBkPhone] = Ze.useState(""),
+    [bkParty, setBkParty] = Ze.useState(2),
+    [bkTime, setBkTime] = Ze.useState(""),
+    [bkNote, setBkNote] = Ze.useState(""),
+    [bkBusy, setBkBusy] = Ze.useState(!1),
     M = SZ.filter((z) => {
       if (n === "ALL");
       else if (n === "NEWSPACE") {
@@ -9320,7 +9329,7 @@ function tp() {
         a.includes("vip")
       )
         q =
-          "Dạ đặt bàn VIP quý khách vui lòng liên hệ hotline 0399 035 303 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
+          "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
       else if (
         a.includes("địa chỉ") ||
         a.includes("dia chi") ||
@@ -9330,7 +9339,7 @@ function tp() {
         a.includes("faq")
       )
         q =
-          "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: 0399 035 303 - Mr Thương. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
+          "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: Mr Thành 0971363121. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
       else if (
         a.includes("pi") ||
         a.includes("thanh toán") ||
@@ -9343,7 +9352,70 @@ function tp() {
           "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(() => {
         o((m) => [...m, { from: "bot", text: q }]);
+        // Lưu lịch sử chat vào Supabase để huấn luyện AI (fire-and-forget, không chờ).
+        fetch("/api/chats", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: GardenSessionId,
+            user_message: z,
+            bot_reply: q,
+          }),
+        }).catch(() => {});
       }, 400);
+    },
+    bkSubmit = (e) => {
+      e.preventDefault();
+      if (bkBusy) return;
+      let nm = bkName.trim(),
+        ph = bkPhone.trim(),
+        pt = parseInt(bkParty, 10);
+      if (!nm || !ph || !bkTime || !(pt >= 1)) {
+        p(
+          "Quý khách vui lòng nhập đủ tên, SĐT, số người (từ 1 trở lên) và giờ đến ạ.",
+        );
+        return;
+      }
+      setBkBusy(!0);
+      fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nm,
+          phone: ph,
+          time: bkTime,
+          party_size: pt,
+          note: bkNote.trim(),
+        }),
+      })
+        .then((res) => res.json().then((d) => ({ ok: res.ok, d })))
+        .then(({ ok, d }) => {
+          setBkBusy(!1);
+          if (ok && d.success) {
+            p(
+              "Cảm ơn " +
+                nm +
+                "! Đã ghi nhận đặt bàn. Bạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
+            );
+            setBkName("");
+            setBkPhone("");
+            setBkParty(2);
+            setBkTime("");
+            setBkNote("");
+          } else {
+            p(
+              "Dạ xin lỗi, chưa ghi nhận được đặt bàn (" +
+                (d.error || "lỗi hệ thống") +
+                "). Quý khách vui lòng gọi Mr Thành 0971363121 để đặt bàn ạ.",
+            );
+          }
+        })
+        .catch(() => {
+          setBkBusy(!1);
+          p(
+            "Dạ xin lỗi, mất kết nối máy chủ. Quý khách vui lòng gọi Mr Thành 0971363121 để đặt bàn ạ.",
+          );
+        });
     };
   return s("div", {
     style: {
@@ -9390,7 +9462,7 @@ function tp() {
                 R("div", {
                   className:
                     "bg-white text-black font-bold rounded-full px-4 py-2 text-[0.85rem] tracking-wide",
-                  children: "0399 035 303",
+                  children: "Mr Thành 0971363121",
                 }),
               ],
             }),
@@ -9426,16 +9498,26 @@ function tp() {
                   ],
                 }),
                 s("p", {
-                  className: "mt-2 text-[0.9rem] leading-[1.5] text-white",
-                  children: [
-                    "Rừng nhiệt đới giữa lòng Gò Vấp. Bia lạnh, ghế nệm sâu, DJ hot, dancer, PR pro. ",
-                    R("span", {
-                      className: "text-[#d4af37] font-bold",
-                      children:
-                        "303 Phạm Văn Đồng, P. Hạnh Thông - 17:00 tới 03:00",
-                    }),
-                  ],
-                }),
+  className: "mt-2 text-[0.9rem] leading-[1.5] text-white",
+  children: [
+    R("span", {
+      className: "font-bold",
+      style: { display: "block" },
+      children: "TỔ HỢP GIẢI TRÍ VỀ ĐÊM ĐẲNG CẤP NHẤT GÒ VẤP",
+    }),
+    R("span", {
+      className: "text-[#d4af37]",
+      style: { display: "block" },
+      children: "古芝最顶级的夜间娱乐综合体",
+    }),
+    R("span", {
+      style: { display: "block" },
+      children: "THE PREMIER NIGHTLIFE ENTERTAINMENT COMPLEX IN GÒ VẤP",
+    }),
+  ],
+}),
+
+
                 s("div", {
                   className: "mt-3 flex flex-wrap gap-2",
                   children: [
@@ -9532,19 +9614,39 @@ function tp() {
           R("div", {
             className:
               "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-3",
-            children: GZ.map((z, a) =>
-              R(
+            children: GZ.map((z, a) => {
+              const isFly = (a + 1) % 2 === 0;
+              const img = R(
                 "img",
                 {
                   src: z,
                   alt: `Gallery ${a + 1}`,
-                  className:
-                    "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
-                  style: { filter: "brightness(0.85) contrast(1.1)" },
+                  className: isFly
+                    ? "w-full h-[320px] object-cover"
+                    : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
+                  style: {
+                    filter: "brightness(0.85) contrast(1.1)",
+                    ...(isFly
+                      ? {
+                          animation:
+                            "garden-flycam 8s ease-in-out infinite alternate",
+                        }
+                      : {}),
+                  },
                 },
                 a,
-              ),
-            ),
+              );
+              if (!isFly) return img;
+              return R(
+                "div",
+                {
+                  className:
+                    "overflow-hidden rounded-[12px] border border-white/[0.08]",
+                  children: img,
+                },
+                a,
+              );
+            }),
           }),
         ],
       }),
@@ -9584,12 +9686,6 @@ function tp() {
             className:
               "flex flex-col md:flex-row md:items-start justify-between gap-3",
             children: [
-              R("h2", {
-                className:
-                  "text-[#d4af37] text-[1.15rem] font-bold tracking-wide leading-tight",
-                children:
-                  "MENU 2 KHU - NEWSPACE EMBER + BEER GARDEN NGOÀI TRỜI",
-              }),
               R("div", {
                 className:
                   "text-[0.8rem] italic text-white bg-white/[0.05] border border-dashed border-white/20 rounded-[8px] px-2.5 py-1.5 max-w-[420px]",
@@ -9679,14 +9775,6 @@ function tp() {
                 }),
             ],
           }),
-          s("div", {
-            className: "mt-2 text-[0.7rem] text-[#6b7280]",
-            children: [
-              "Tổng ",
-              M.length,
-              " món • DARK NOT WHITE • Giá chưa VAT • Chỉ hotline ngoài menu: 0399 035 303",
-            ],
-          }),
         ],
       }),
       R("section", {
@@ -9706,17 +9794,62 @@ function tp() {
             }),
             R("p", {
               className: "mt-1 text-[0.85rem] text-[#d4af37] font-semibold",
-              children: "Hotline đặt bàn: 0399 035 303",
+              children: "Hotline đặt bàn: Mr Thành 0971363121",
             }),
-            R("button", {
-              onClick: () =>
-                p(
-                  "Cảm ơn quý khách! Đội ngũ Garden Station 303 sẽ liên hệ lại qua hotline 0399 035 303 để xác nhận đặt bàn VIP. Pioneers được giảm 10% bill ạ.",
-                ),
-              className:
-                "mt-3 px-5 py-2.5 rounded-full font-bold text-white text-[0.85rem]",
-              style: { background: "linear-gradient(90deg,#ef4444,#22c55e)" },
-              children: "ĐẶT BÀN NGAY",
+            R("form", {
+              onSubmit: bkSubmit,
+              className: "mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2",
+              children: [
+                R("input", {
+                  value: bkName,
+                  onChange: (z) => setBkName(z.target.value),
+                  placeholder: "Tên quý khách",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkPhone,
+                  onChange: (z) => setBkPhone(z.target.value),
+                  placeholder: "SĐT (vd 0971363121)",
+                  type: "tel",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkParty,
+                  onChange: (z) => setBkParty(z.target.value),
+                  placeholder: "Số người",
+                  type: "number",
+                  min: 1,
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkTime,
+                  onChange: (z) => setBkTime(z.target.value),
+                  type: "datetime-local",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("textarea", {
+                  value: bkNote,
+                  onChange: (z) => setBkNote(z.target.value),
+                  placeholder: "Ghi chú (không bắt buộc)",
+                  rows: 2,
+                  className:
+                    "sm:col-span-2 bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("button", {
+                  type: "submit",
+                  disabled: bkBusy,
+                  className:
+                    "sm:col-span-2 mt-1 px-5 py-2.5 rounded-full font-bold text-white text-[0.85rem]",
+                  style: {
+                    background: "linear-gradient(90deg,#ef4444,#22c55e)",
+                  },
+                  children: bkBusy ? "ĐANG GỬI..." : "ĐẶT BÀN NGAY",
+                }),
+              ],
             }),
             r &&
               R("div", {
@@ -9808,14 +9941,10 @@ function tp() {
               children: "Pi Network",
             }),
             " • ",
-            R("span", { className: "text-[#9ca3af]", children: "Chị" }),
-            " ",
             R("span", {
               className: "text-white font-bold",
-              children: "0399 035 303",
+              children: "Mr Thành 0971363121",
             }),
-            " ",
-            R("span", { className: "text-[#9ca3af]", children: "Mr Thương" }),
             " • ",
             R("span", {
               className: "text-white",
@@ -9948,7 +10077,7 @@ function tp() {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#22c55e]/30 text-white px-2 py-1 rounded-full",
                                 children:
-                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • 0399 035 303",
+                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • Mr Thành 0971363121",
                               }),
                               R("div", {
                                 className:
