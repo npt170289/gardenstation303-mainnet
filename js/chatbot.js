@@ -1,34 +1,34 @@
-// Chatbot Garden 303 - Tier 1 direct chat free + Tier 2 Pi Payment
-const CHATBOT_CONFIG = {
-  link: 'https://onggialinhic5930.pinet.com',
-  info: '17:00-03:00 • Hotline 0399 035 303 Mr Thương • Beer Garden + VIP Lounge + DJ & Dancer + PR Pro • Menu 108 món',
-  floatingBtn: { size: '60px', bg: 'linear-gradient(135deg, #d4af37, #22c55e)', icon: '💬' }
-};
+// Garden Station 303 — Chat logger (fallback, Phase 1)
+// Nhiệm vụ DUY NHẤT: ghi lịch sử chat vào Supabase qua /api/chats
+// để huấn luyện AI. Không UI, không nút nổi, không Pi Payment,
+// không gọi payGarden303, không gọi Pi SDK.
+// Thông tin đúng: Hotline Mr Thành 0971363121 • Menu 308 món • Mở cửa 17:00-03:00
+// (chỉ ghi trong comment — file này không có giao diện).
+//
+// Cách dùng (từ bất kỳ chỗ nào trong trang):
+//   window.GardenChatLog(sessionId, userMessage, botReply)
+//     → POST /api/chats, trả về true nếu lưu được, false nếu không.
+// Chatbot chính vẫn là iframe Pi Studio:
+//   https://onggialinhic5930.pinet.com (Published, Testnet, 7.5 Pi)
 
-function initChatbot() {
-  // Tier 1: direct chat free - default, no Pi login
-  const chatBtn = document.getElementById('chatbot-float');
-  const modal = document.getElementById('chatbot-modal');
-  if (chatBtn) {
-    chatBtn.style.width = CHATBOT_CONFIG.floatingBtn.size;
-    chatBtn.style.height = CHATBOT_CONFIG.floatingBtn.size;
-    chatBtn.style.background = CHATBOT_CONFIG.floatingBtn.bg;
-    chatBtn.innerHTML = CHATBOT_CONFIG.floatingBtn.icon;
+(function () {
+  async function gardenChatLog(sessionId, userMessage, botReply) {
+    try {
+      if (!sessionId || !userMessage || !botReply) return false;
+      var res = await fetch("/api/chats", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: String(sessionId),
+          user_message: String(userMessage),
+          bot_reply: String(botReply),
+        }),
+      });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
   }
-  // Tier 2: Pi Payment only when PAY clicked
-  const payBtn = document.getElementById('chatbot-pay');
-  if (payBtn) {
-    payBtn.addEventListener('click', () => {
-      const amount = 1;
-      const uid = 'TARGET_UID'; // replace with actual TARGET_UIDS[0]
-      const username = 'user';
-      payGarden303(amount, uid, username);
-    });
-  }
-  // Open modal with core info only
-  if (modal) {
-    const infoEl = modal.querySelector('.chatbot-info');
-    if (infoEl) infoEl.textContent = CHATBOT_CONFIG.info;
-  }
-}
-document.addEventListener('DOMContentLoaded', initChatbot);
+
+  window.GardenChatLog = gardenChatLog;
+})();

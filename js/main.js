@@ -9273,6 +9273,9 @@ var SZ = window.__MENU__ || [],
   GZ = [Ca, xa, Na, va, Qa, Ja, Sa, Ua, Wa, Oa, Pa],
   an = "https://onggialinhic5930.pinet.com",
   lp = "Made with App Studio";
+// Session chat dùng chung cho cả phiên xem trang — để lưu lịch sử vào bảng chats.
+var GardenSessionId =
+  "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
 function tp() {
   let [A, e] = Ze.useState(!1),
     [n, l] = Ze.useState("ALL"),
@@ -9286,6 +9289,12 @@ function tp() {
       },
     ]),
     [I, V] = Ze.useState(""),
+    [bkName, setBkName] = Ze.useState(""),
+    [bkPhone, setBkPhone] = Ze.useState(""),
+    [bkParty, setBkParty] = Ze.useState(2),
+    [bkTime, setBkTime] = Ze.useState(""),
+    [bkNote, setBkNote] = Ze.useState(""),
+    [bkBusy, setBkBusy] = Ze.useState(!1),
     M = SZ.filter((z) => {
       if (n === "ALL");
       else if (n === "NEWSPACE") {
@@ -9343,7 +9352,70 @@ function tp() {
           "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(() => {
         o((m) => [...m, { from: "bot", text: q }]);
+        // Lưu lịch sử chat vào Supabase để huấn luyện AI (fire-and-forget, không chờ).
+        fetch("/api/chats", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: GardenSessionId,
+            user_message: z,
+            bot_reply: q,
+          }),
+        }).catch(() => {});
       }, 400);
+    },
+    bkSubmit = (e) => {
+      e.preventDefault();
+      if (bkBusy) return;
+      let nm = bkName.trim(),
+        ph = bkPhone.trim(),
+        pt = parseInt(bkParty, 10);
+      if (!nm || !ph || !bkTime || !(pt >= 1)) {
+        p(
+          "Quý khách vui lòng nhập đủ tên, SĐT, số người (từ 1 trở lên) và giờ đến ạ.",
+        );
+        return;
+      }
+      setBkBusy(!0);
+      fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nm,
+          phone: ph,
+          time: bkTime,
+          party_size: pt,
+          note: bkNote.trim(),
+        }),
+      })
+        .then((res) => res.json().then((d) => ({ ok: res.ok, d })))
+        .then(({ ok, d }) => {
+          setBkBusy(!1);
+          if (ok && d.success) {
+            p(
+              "Cảm ơn " +
+                nm +
+                "! Đã ghi nhận đặt bàn. Bạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
+            );
+            setBkName("");
+            setBkPhone("");
+            setBkParty(2);
+            setBkTime("");
+            setBkNote("");
+          } else {
+            p(
+              "Dạ xin lỗi, chưa ghi nhận được đặt bàn (" +
+                (d.error || "lỗi hệ thống") +
+                "). Quý khách vui lòng gọi Mr Thành 0971363121 để đặt bàn ạ.",
+            );
+          }
+        })
+        .catch(() => {
+          setBkBusy(!1);
+          p(
+            "Dạ xin lỗi, mất kết nối máy chủ. Quý khách vui lòng gọi Mr Thành 0971363121 để đặt bàn ạ.",
+          );
+        });
     };
   return s("div", {
     style: {
@@ -9436,7 +9508,7 @@ function tp() {
     R("span", {
       className: "text-[#d4af37]",
       style: { display: "block" },
-      children: "古芝最顶级的夜间娱乐综合体",
+      children: "GÒ VẤP最顶级的夜间娱乐综合体",
     }),
     R("span", {
       style: { display: "block" },
@@ -9724,15 +9796,60 @@ function tp() {
               className: "mt-1 text-[0.85rem] text-[#d4af37] font-semibold",
               children: "Hotline đặt bàn: Mr Thành 0971363121",
             }),
-            R("button", {
-              onClick: () =>
-                p(
-                  "Cảm ơn quý khách! Đội ngũ Garden Station 303 sẽ liên hệ lại qua Mr Thành 0971363121 để xác nhận đặt bàn VIP. Pioneers được giảm 10% bill ạ.",
-                ),
-              className:
-                "mt-3 px-5 py-2.5 rounded-full font-bold text-white text-[0.85rem]",
-              style: { background: "linear-gradient(90deg,#ef4444,#22c55e)" },
-              children: "ĐẶT BÀN NGAY",
+            R("form", {
+              onSubmit: bkSubmit,
+              className: "mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2",
+              children: [
+                R("input", {
+                  value: bkName,
+                  onChange: (z) => setBkName(z.target.value),
+                  placeholder: "Tên quý khách",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkPhone,
+                  onChange: (z) => setBkPhone(z.target.value),
+                  placeholder: "SĐT (vd 0971363121)",
+                  type: "tel",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkParty,
+                  onChange: (z) => setBkParty(z.target.value),
+                  placeholder: "Số người",
+                  type: "number",
+                  min: 1,
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("input", {
+                  value: bkTime,
+                  onChange: (z) => setBkTime(z.target.value),
+                  type: "datetime-local",
+                  className:
+                    "bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("textarea", {
+                  value: bkNote,
+                  onChange: (z) => setBkNote(z.target.value),
+                  placeholder: "Ghi chú (không bắt buộc)",
+                  rows: 2,
+                  className:
+                    "sm:col-span-2 bg-[#111827] border border-white/10 rounded-lg px-3 py-2 text-[0.85rem] text-white outline-none focus:border-[#d4af37]/50",
+                }),
+                R("button", {
+                  type: "submit",
+                  disabled: bkBusy,
+                  className:
+                    "sm:col-span-2 mt-1 px-5 py-2.5 rounded-full font-bold text-white text-[0.85rem]",
+                  style: {
+                    background: "linear-gradient(90deg,#ef4444,#22c55e)",
+                  },
+                  children: bkBusy ? "ĐANG GỬI..." : "ĐẶT BÀN NGAY",
+                }),
+              ],
             }),
             r &&
               R("div", {
