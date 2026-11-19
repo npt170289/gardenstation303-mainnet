@@ -9508,7 +9508,7 @@ function tp() {
     R("span", {
       className: "text-[#d4af37]",
       style: { display: "block" },
-      children: "古芝最顶级的夜间娱乐综合体",
+      children: "GÒ VẤP最顶级的夜间娱乐综合体",
     }),
     R("span", {
       style: { display: "block" },
