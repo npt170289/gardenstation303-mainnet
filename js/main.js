@@ -9270,7 +9270,20 @@ var SZ = window.__MENU__ || [],
     "Drinks",
     "All",
   ],
-  GZ = [Ca, xa, Na, va, Qa, Ja, Sa, Ua, Wa, Oa, Pa],
+  GZ = [
+    Ca,
+    xa,
+    Na,
+    va,
+    "public/videos/gallery-303-vibe.mp4",
+    Ja,
+    Sa,
+    Ua,
+    Wa,
+    Oa,
+    Pa,
+    Qa,
+  ],
   an = "https://onggialinhic5930.pinet.com";
 // Session chat dùng chung cho cả phiên xem trang — để lưu lịch sử vào bảng chats.
 var GardenSessionId =
@@ -9571,33 +9584,61 @@ function tp() {
               "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-3",
             children: GZ.map((z, a) => {
               const isFly = (a + 1) % 2 === 0;
-              const img = R(
-                "img",
-                {
-                  src: z,
-                  alt: `Gallery ${a + 1}`,
-                  className: isFly
-                    ? "w-full h-[320px] object-cover"
-                    : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
-                  style: {
-                    filter: "brightness(0.85) contrast(1.1)",
-                    ...(isFly
-                      ? {
-                          animation:
-                            "garden-flycam 8s ease-in-out infinite alternate",
-                        }
-                      : {}),
-                  },
-                },
-                a,
-              );
-              if (!isFly) return img;
+              const isVideo =
+                typeof z === "string" &&
+                z.toLowerCase().endsWith(".mp4");
+              const media = isVideo
+                ? R(
+                    "video",
+                    {
+                      src: z,
+                      autoPlay: !0,
+                      muted: !0,
+                      loop: !0,
+                      playsInline: !0,
+                      preload: "metadata",
+                      className: isFly
+                        ? "w-full h-[320px] object-cover"
+                        : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
+                      style: {
+                        filter: "brightness(0.85) contrast(1.1)",
+                        ...(isFly
+                          ? {
+                              animation:
+                                "garden-flycam 8s ease-in-out infinite alternate",
+                            }
+                          : {}),
+                      },
+                    },
+                    a,
+                  )
+                : R(
+                    "img",
+                    {
+                      src: z,
+                      alt: `Gallery ${a + 1}`,
+                      className: isFly
+                        ? "w-full h-[320px] object-cover"
+                        : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
+                      style: {
+                        filter: "brightness(0.85) contrast(1.1)",
+                        ...(isFly
+                          ? {
+                              animation:
+                                "garden-flycam 8s ease-in-out infinite alternate",
+                            }
+                          : {}),
+                      },
+                    },
+                    a,
+                  );
+              if (!isFly) return media;
               return R(
                 "div",
                 {
                   className:
                     "overflow-hidden rounded-[12px] border border-white/[0.08]",
-                  children: img,
+                  children: media,
                 },
                 a,
               );
