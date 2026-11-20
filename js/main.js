@@ -9402,10 +9402,32 @@ function tp() {
         .then(({ ok, d }) => {
           setBkBusy(!1);
           if (ok && d.success) {
+            let dt = new Date(bkTime),
+              hh = dt.getHours(),
+              mm = dt.getMinutes(),
+              ngayGio =
+                dt.getDate() +
+                "/" +
+                (dt.getMonth() + 1) +
+                "/" +
+                dt.getFullYear() +
+                " " +
+                (hh < 10 ? "0" + hh : hh) +
+                ":" +
+                (mm < 10 ? "0" + mm : mm),
+              nt = bkNote.trim();
             p(
               "Cảm ơn " +
                 nm +
-                "! Đã ghi nhận đặt bàn. Bạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
+                "! Đã ghi nhận đặt bàn.\n" +
+                "• Số người: " +
+                pt +
+                "\n• SĐT: " +
+                ph +
+                "\n• Ngày/giờ: " +
+                ngayGio +
+                (nt ? "\n• Ghi chú: " + nt : "") +
+                "\nBạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
             );
             setBkName("");
             setBkPhone("");
@@ -9849,6 +9871,7 @@ function tp() {
               R("div", {
                 className:
                   "mt-3 text-[0.85rem] text-white bg-white/10 border border-white/10 rounded-lg p-3",
+                style: { whiteSpace: "pre-line" },
                 children: r,
               }),
             s("div", {
