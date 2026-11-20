@@ -9974,8 +9974,13 @@ function tp() {
       R("button", {
         onClick: () => e(!0),
         className:
-          "fixed top-6 right-6 w-[78px] h-[78px] rounded-full flex items-center justify-center text-white text-[31px] z-40 hover:scale-110 transition-transform",
+          "fixed rounded-full flex items-center justify-center text-white z-40 hover:scale-110 transition-transform",
         style: {
+          top: "24px",
+          right: "24px",
+          width: "78px",
+          height: "78px",
+          fontSize: "31px",
           background: "linear-gradient(135deg,#d4af37,#22c55e)",
           boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
         },
