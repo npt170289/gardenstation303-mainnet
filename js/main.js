@@ -9271,8 +9271,7 @@ var SZ = window.__MENU__ || [],
     "All",
   ],
   GZ = [Ca, xa, Na, va, Qa, Ja, Sa, Ua, Wa, Oa, Pa],
-  an = "https://onggialinhic5930.pinet.com",
-  lp = "Made with App Studio";
+  an = "https://onggialinhic5930.pinet.com";
 // Session chat dùng chung cho cả phiên xem trang — để lưu lịch sử vào bảng chats.
 var GardenSessionId =
   "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
@@ -9874,11 +9873,6 @@ function tp() {
                     }),
                   ],
                 }),
-                R("div", {
-                  className: "mt-2 text-[0.7rem] text-[#9ca3af]",
-                  children:
-                    "Chatbot AI độc lập - Không cần đăng nhập Pi - Chỉ khi PAY mới cần Pi Browser",
-                }),
               ],
             }),
           ],
@@ -9890,13 +9884,6 @@ function tp() {
         children: s("div", {
           className: "text-[0.7rem] text-white leading-relaxed",
           children: [
-            R("span", { className: "text-[#9ca3af]", children: "Powered by" }),
-            " ",
-            R("span", {
-              className: "text-[#d4af37] font-bold",
-              children: "Pi Network",
-            }),
-            " • ",
             R("span", {
               className: "text-white font-bold",
               children: "Mr Thành 0971363121",
@@ -9918,29 +9905,13 @@ function tp() {
               className: "text-[#9ca3af] hover:text-white underline ml-1",
               children: "Terms",
             }),
-            s("div", {
-              className: "mt-2 flex items-center gap-2",
-              children: [
-                R("span", {
-                  className: "text-[#9ca3af]",
-                  children: "Chatbot:",
-                }),
-                s("a", {
-                  href: an,
-                  target: "_blank",
-                  rel: "noopener",
-                  className: "text-[#d4af37] hover:underline",
-                  children: [R("span", { children: lp }), " • ", an],
-                }),
-              ],
-            }),
           ],
         }),
       }),
       R("button", {
         onClick: () => e(!0),
         className:
-          "fixed bottom-6 right-6 w-[60px] h-[60px] rounded-full flex items-center justify-center text-white text-[24px] z-40 hover:scale-110 transition-transform",
+          "fixed top-6 right-6 w-[78px] h-[78px] rounded-full flex items-center justify-center text-white text-[31px] z-40 hover:scale-110 transition-transform",
         style: {
           background: "linear-gradient(135deg,#d4af37,#22c55e)",
           boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
