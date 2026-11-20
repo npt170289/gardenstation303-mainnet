@@ -9212,8 +9212,6 @@ var Oa = "public/images/gallery/khach-vayden-kinhden.jpg";
 var Pa = "public/images/gallery/nhom-khach-nu-trang.jpg";
 var Ka = "public/videos/be-ao-den-nhay.mp4";
 var Ya = "public/videos/be-dancer-ao-hong.mp4";
-var Fa = "public/videos/be-quan-trang.mp4";
-var ba = "public/videos/khach-vay-den-nhay.mp4";
 var Qv="public/videos/fullvibe.mp4";
 var Ba = oe(mn(), 1),
   sZ = Symbol.for("react.element"),
@@ -9655,7 +9653,7 @@ function tp() {
           }),
           R("div", {
             className: "grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3",
-            children: [Ka, Ya, Fa, ba].map((z, a) =>
+            children: [Ka, Ya].map((z, a) =>
               R(
                 "video",
                 {
