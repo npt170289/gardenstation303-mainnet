@@ -9553,50 +9553,6 @@ function tp() {
                     }),
                   ],
                 }),
-                s("div", {
-                  className:
-                    "mt-3 flex items-center gap-3 bg-[#0f172a] border border-white/[0.08] rounded-xl px-3 py-2.5 max-w-[360px]",
-                  children: [
-                    R("a", {
-                      href: an,
-                      target: "_blank",
-                      rel: "noopener",
-                      className: "shrink-0",
-                      children: R("img", {
-                        src: _r,
-                        alt: lp,
-                        className:
-                          "w-9 h-9 rounded-lg object-cover border border-white/10",
-                        style: { filter: "brightness(0.85)" },
-                      }),
-                    }),
-                    s("div", {
-                      className: "flex flex-col leading-tight",
-                      children: [
-                        R("a", {
-                          href: an,
-                          target: "_blank",
-                          rel: "noopener",
-                          className:
-                            "text-white text-[0.85rem] font-semibold hover:text-[#d4af37] transition-colors",
-                          children: lp,
-                        }),
-                        R("span", {
-                          className: "text-[#9ca3af] text-[0.65rem]",
-                          children: "Chatbot AI • Garden Station 303",
-                        }),
-                      ],
-                    }),
-                    R("a", {
-                      href: an,
-                      target: "_blank",
-                      rel: "noopener",
-                      className:
-                        "ml-auto text-[0.7rem] bg-white text-black font-bold px-3 py-1 rounded-full",
-                      children: "OPEN",
-                    }),
-                  ],
-                }),
               ],
             }),
             s("div",{className:"lg:w-[40%] flex flex-col gap-2",children:[R("video",{src:Qv,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,preload:"metadata",className:"w-full h-[360px] object-cover rounded-[16px] border border-white/[0.08] bg-[#111]",style:{filter:"brightness(0.85)"}})]})
