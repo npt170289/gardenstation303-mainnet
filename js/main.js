@@ -9295,7 +9295,7 @@ function tp() {
     [Z, o] = Ze.useState([
       {
         from: "bot",
-        text: 'Chào quý khách! Chào mừng đến Garden Station 303 \uD83C\uDF3F Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 308 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.',
+        text: 'Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 308 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.',
       },
     ]),
     [I, V] = Ze.useState(""),
@@ -9339,7 +9339,7 @@ function tp() {
         a.includes("vip")
       )
         q =
-          "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
+          "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
       else if (
         a.includes("địa chỉ") ||
         a.includes("dia chi") ||
@@ -9549,6 +9549,20 @@ function tp() {
     }),
   ],
 }),
+                R("button", {
+                  onClick: () => e(!0),
+                  className:
+                    "mt-3 flex items-center gap-2 rounded-full text-white font-bold",
+                  style: {
+                    background:
+                      "linear-gradient(135deg,#d4af37,#22c55e)",
+                    boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
+                    padding: "10px 18px",
+                    fontSize: "0.9rem",
+                  },
+                  "aria-label": "Open chatbot",
+                  children: "\uD83D\uDCAC AI Tư vấn và đặt bàn",
+                }),
 
 
                 s("div", {
@@ -9971,22 +9985,6 @@ function tp() {
           ],
         }),
       }),
-      R("button", {
-        onClick: () => e(!0),
-        className:
-          "fixed rounded-full flex items-center justify-center text-white z-40 hover:scale-110 transition-transform",
-        style: {
-          top: "24px",
-          right: "24px",
-          width: "78px",
-          height: "78px",
-          fontSize: "31px",
-          background: "linear-gradient(135deg,#d4af37,#22c55e)",
-          boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
-        },
-        "aria-label": "Open chatbot",
-        children: "\uD83D\uDCAC",
-      }),
       A &&
         R("div", {
           className:
@@ -10054,12 +10052,6 @@ function tp() {
                           children: s("div", {
                             className: "flex gap-1.5 flex-wrap",
                             children: [
-                              R("div", {
-                                className:
-                                  "text-[0.65rem] bg-[#111827] border border-[#22c55e]/30 text-white px-2 py-1 rounded-full",
-                                children:
-                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • Mr Thành 0971363121",
-                              }),
                               R("div", {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#facc15]/30 text-white px-2 py-1 rounded-full",
