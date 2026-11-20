@@ -9281,7 +9281,7 @@ function tp() {
     [n, l] = Ze.useState("ALL"),
     [t, u] = Ze.useState("Gà Tre"),
     [r, p] = Ze.useState(""),
-    [i, c] = Ze.useState(!1),
+    [i, c] = Ze.useState(!0),
     [Z, o] = Ze.useState([
       {
         from: "bot",
@@ -10020,19 +10020,18 @@ function tp() {
                 className:
                   "px-3 py-2 bg-[#05080f] border-b border-white/5 text-[0.7rem] text-[#9ca3af] shrink-0",
                 children: [
-                  "Chatbot AI độc lập - Không cần đăng nhập Pi - Chỉ khi PAY mới cần Pi Browser",
                   s("div", {
-                    className: "mt-1 flex gap-1.5",
+                    className: "flex gap-1.5",
                     children: [
-                      R("button", {
-                        onClick: () => c(!1),
-                        className: `px-2 py-1 rounded-full text-[0.65rem] border ${!i ? "bg-[#d4af37] text-black border-[#d4af37] font-bold" : "bg-[#111827] text-white border-white/10"}`,
-                        children: "AI Iframe",
-                      }),
                       R("button", {
                         onClick: () => c(!0),
                         className: `px-2 py-1 rounded-full text-[0.65rem] border ${i ? "bg-[#d4af37] text-black border-[#d4af37] font-bold" : "bg-[#111827] text-white border-white/10"}`,
                         children: "Nội bộ 3 tầng",
+                      }),
+                      R("button", {
+                        onClick: () => c(!1),
+                        className: `px-2 py-1 rounded-full text-[0.65rem] border ${!i ? "bg-[#d4af37] text-black border-[#d4af37] font-bold" : "bg-[#111827] text-white border-white/10"}`,
+                        children: "AI Iframe",
                       }),
                     ],
                   }),
@@ -10048,19 +10047,6 @@ function tp() {
                           title: "Garden Station Chatbot",
                           className: "w-full h-full border-0 rounded-b-[20px]",
                           style: { height: "100%" },
-                        }),
-                        s("div", {
-                          className:
-                            "absolute bottom-0 left-0 right-0 bg-[#0f172a]/90 backdrop-blur p-2 text-[0.65rem] text-[#9ca3af] border-t border-white/10",
-                          children: [
-                            "Nếu iframe không tải, quý khách vui lòng chuyển sang chế độ ",
-                            R("button", {
-                              onClick: () => c(!0),
-                              className: "text-[#d4af37] underline",
-                              children: "Nội bộ 3 tầng",
-                            }),
-                            " bên dưới ạ.",
-                          ],
                         }),
                       ],
                     })
