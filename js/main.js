@@ -9821,7 +9821,7 @@ function tp() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               },
-              children: "ĐẶT BÀN VIP - Pioneers giảm 10% bill",
+              children: "ĐẶT BÀN VIP - Tặng 200 Pi",
             }),
             R("p", {
               className: "mt-1 text-[0.85rem] text-[#d4af37] font-semibold",
@@ -10061,7 +10061,7 @@ function tp() {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#ef4444]/30 text-white px-2 py-1 rounded-full",
                                 children:
-                                  "Tầng 3 Đặt bàn VIP Pioneers giảm 10% bill",
+                                  "Tầng 3 Đặt bàn VIP - Tặng 200 Pi",
                               }),
                             ],
                           }),
