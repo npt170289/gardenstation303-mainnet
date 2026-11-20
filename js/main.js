@@ -9402,7 +9402,8 @@ function tp() {
         .then(({ ok, d }) => {
           setBkBusy(!1);
           if (ok && d.success) {
-            let dt = new Date(bkTime),
+            let bk = d.booking || {},
+              dt = new Date(bk.time || bkTime),
               hh = dt.getHours(),
               mm = dt.getMinutes(),
               ngayGio =
@@ -9415,15 +9416,15 @@ function tp() {
                 (hh < 10 ? "0" + hh : hh) +
                 ":" +
                 (mm < 10 ? "0" + mm : mm),
-              nt = bkNote.trim();
+              nt = (bk.note || bkNote || "").trim();
             p(
               "Cảm ơn " +
-                nm +
+                (bk.name || nm) +
                 "! Đã ghi nhận đặt bàn.\n" +
                 "• Số người: " +
-                pt +
+                (bk.party_size || pt) +
                 "\n• SĐT: " +
-                ph +
+                (bk.phone || ph) +
                 "\n• Ngày/giờ: " +
                 ngayGio +
                 (nt ? "\n• Ghi chú: " + nt : "") +
