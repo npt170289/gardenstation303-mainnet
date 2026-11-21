@@ -11,6 +11,21 @@
     from { transform: scale(1) translateY(0); }
     to { transform: scale(1.08) translate(12px, -22px); }
   }
+  /* Hinh nen flycam mo mo xuyen suot trang (public/images/bg-flycam.jpg):
+     anh dem, co dinh sau lung toan bo noi dung, phu them lop toi de chu van doc ro. */
+  body {
+    background-color: #05080f;
+    background-image: linear-gradient(rgba(5, 8, 15, 0.80), rgba(5, 8, 15, 0.80)), url("public/images/bg-flycam.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+  /* Cho anh nen cua body hien qua: bo nen dac cua div goc React (chi div goc,
+     header/cac the con giu nguyen nen cua chung). */
+  #root > div {
+    background-color: transparent !important;
+  }
   </style>
 </head>
 
