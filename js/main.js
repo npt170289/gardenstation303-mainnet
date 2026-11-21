@@ -10018,6 +10018,14 @@ function tp() {
             }),
             " • ",
             R("a", {
+              href: "https://www.google.com/maps/search/?api=1&query=303+Ph%E1%BA%A1m+V%C4%83n+%C4%90%E1%BB%93ng+G%C3%B2+V%E1%BA%A5p+TP.HCM",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-[#9ca3af] hover:text-white underline ml-1",
+              children: "Chỉ đường ↗",
+            }),
+            " • ",
+            R("a", {
               href: "#",
               className: "text-[#9ca3af] hover:text-white underline ml-2",
               children: "Privacy",
