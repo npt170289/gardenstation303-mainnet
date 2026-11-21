@@ -9858,7 +9858,7 @@ function tp() {
         className: "max-w-[1280px] mx-auto p-4",
         children: s("div", {
           className:
-            "bg-[#0f172a] border border-white/[0.08] rounded-[16px] p-4",
+            "bg-[#0f172a] border border-white/[0.08] rounded-[16px] p-4 garden-banner-border",
           children: [
             R("h3", {
               className: "text-[1rem] font-bold",
