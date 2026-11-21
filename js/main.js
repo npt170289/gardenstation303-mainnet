@@ -9295,7 +9295,7 @@ function tp() {
     [Z, o] = Ze.useState([
       {
         from: "bot",
-        text: 'Chào quý khách! Chào mừng đến Garden Station 303 \uD83C\uDF3F Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 308 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.',
+        text: 'Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 308 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.\nHow can I help? Type "menu" / "booking" / "address".\n需要什么帮助？输入"menu" / "booking" / "address"。',
       },
     ]),
     [I, V] = Ze.useState(""),
@@ -9329,27 +9329,69 @@ function tp() {
       (o((m) => [...m, { from: "user", text: z }]), V(""));
       let a = z.toLowerCase(),
         q = "";
-      if (a.includes("menu") || a.includes("món"))
+      // Nhận diện ngôn ngữ khách gõ: cn (chữ Hán), en (từ khóa tiếng Anh), vi (mặc định).
+      let lang = "vi";
+      if (/[\u4e00-\u9fff]/.test(z)) lang = "cn";
+      else if (
+        /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/.test(a) ||
+        /\b(dat ban|dia chi|thuc don|mo cua|thanh toan|o dau)\b/.test(a)
+      )
+        lang = "vi";
+      else if (
+        /\b(menu|booking|book|address|open|hours|price|vip|hello|hi|hey|table|reservation|how|what|where|when|pay|payment)\b/.test(a)
+      )
+        lang = "en";
+      if (
+        a.includes("menu") ||
+        a.includes("món") ||
+        a.includes("菜单") ||
+        a.includes("菜")
+      )
         q =
-          "Dạ menu nhà em có 308 món ạ: Gà Tre 9 món, Lai Rai 36 món, Lúa Mạch 25 món, Mực 12 món, Tôm 10 món, Hải Sản 23 món, Đồng Quê 15 món, Cá 9 món, Cơm Mì Miến 14 món, Cháo Lẩu 19 món, Combo 10 món, Combo Set Rượu 44 set, Cocktail 3L 17 loại, Drinks 65 loại. Giá chưa gồm VAT và phí dịch vụ. Quý khách muốn xem khu nào ạ? NEWSPACE EMBER hay BEER GARDEN NGOÀI TRỜI?";
+          lang === "cn"
+            ? "本店菜单有308道菜：Gà Tre 9道，Lai Rai 36道，Lúa Mạch 25道，Mực 12道，Tôm 10道，Hải Sản 23道，Đồng Quê 15道，Cá 9道，Cơm Mì Miến 14道，Cháo Lẩu 19道，Combo 10道，Combo Set Rượu 44套，Cocktail 3L 17种，Drinks 65种。价格不含增值税和服务费。您想看哪个区域？NEWSPACE EMBER还是户外BEER GARDEN？"
+            : lang === "en"
+              ? "Our menu has 308 dishes: Gà Tre 9, Lai Rai 36, Lúa Mạch 25, Mực 12, Tôm 10, Hải Sản 23, Đồng Quê 15, Cá 9, Cơm Mì Miến 14, Cháo Lẩu 19, Combo 10, Combo Set Rượu 44 sets, Cocktail 3L 17, Drinks 65. Prices exclude VAT and service fee. Which area would you like? NEWSPACE EMBER or outdoor BEER GARDEN?"
+              : "Dạ menu nhà em có 308 món ạ: Gà Tre 9 món, Lai Rai 36 món, Lúa Mạch 25 món, Mực 12 món, Tôm 10 món, Hải Sản 23 món, Đồng Quê 15 món, Cá 9 món, Cơm Mì Miến 14 món, Cháo Lẩu 19 món, Combo 10 món, Combo Set Rượu 44 set, Cocktail 3L 17 loại, Drinks 65 loại. Giá chưa gồm VAT và phí dịch vụ. Quý khách muốn xem khu nào ạ? NEWSPACE EMBER hay BEER GARDEN NGOÀI TRỜI?";
       else if (
         a.includes("đặt bàn") ||
         a.includes("dat ban") ||
         a.includes("booking") ||
-        a.includes("vip")
+        a.includes("vip") ||
+        a.includes("book") ||
+        a.includes("reservation") ||
+        a.includes("table") ||
+        a.includes("预订") ||
+        a.includes("预定") ||
+        a.includes("订桌") ||
+        a.includes("订位")
       )
         q =
-          "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. Pioneers được giảm 10% bill. Khu vực NEWSPACE EMBER có ghế nệm sâu, DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
+          lang === "cn"
+            ? "预订贵宾桌请联系 Mr Thành 0971363121。热辣DJ、舞者、专业公关。户外啤酒花园。请问几位、几点到？"
+            : lang === "en"
+              ? "For VIP booking, please contact Mr Thành 0971363121. Hot DJ, dancer, pro PR. Outdoor Beer Garden. How many people and what time?"
+              : "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
       else if (
         a.includes("địa chỉ") ||
         a.includes("dia chi") ||
         a.includes("ở đâu") ||
         a.includes("giờ") ||
         a.includes("open") ||
-        a.includes("faq")
+        a.includes("faq") ||
+        a.includes("address") ||
+        a.includes("hours") ||
+        a.includes("地址") ||
+        a.includes("在哪") ||
+        a.includes("营业") ||
+        a.includes("时间")
       )
         q =
-          "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: Mr Thành 0971363121. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
+          lang === "cn"
+            ? "常见问题：地址303 Phạm Văn Đồng, Hạnh Thông, Gò Vấp。营业时间每天17:00 - 03:00。订桌热线：Mr Thành 0971363121。Gò Vấp市中心的热带雨林，冰啤酒、深座椅。"
+            : lang === "en"
+              ? "FAQ: Address 303 Phạm Văn Đồng, Hạnh Thông Ward, Gò Vấp. Open 17:00 - 03:00 daily. Booking hotline: Mr Thành 0971363121. Tropical jungle in the heart of Gò Vấp, cold beer, deep lounge seats."
+              : "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: Mr Thành 0971363121. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
       else if (
         a.includes("pi") ||
         a.includes("thanh toán") ||
@@ -9359,7 +9401,11 @@ function tp() {
           "Dạ Pi Network Payment - PCT APPROVAL READY ạ. SDK LOADER IDLE, AUTH IDLE, BACKEND /api/pay_a2u. Thanh toán Pi chỉ cần khi PAY, còn chat tư vấn thì không cần đăng nhập Pi Browser ạ.";
       else
         q =
-          "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
+          lang === "cn"
+            ? '需要什么帮助？需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看308道菜，"booking"预订贵宾桌，"address"查看信息。'
+            : lang === "en"
+              ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 308 dishes, "booking" for VIP booking, "address" for info.'
+              : "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(() => {
         o((m) => [...m, { from: "bot", text: q }]);
         // Lưu lịch sử chat vào Supabase để huấn luyện AI (fire-and-forget, không chờ).
@@ -9402,10 +9448,33 @@ function tp() {
         .then(({ ok, d }) => {
           setBkBusy(!1);
           if (ok && d.success) {
+            let bk = d.booking || {},
+              dt = new Date(bk.time || bkTime),
+              hh = dt.getHours(),
+              mm = dt.getMinutes(),
+              ngayGio =
+                dt.getDate() +
+                "/" +
+                (dt.getMonth() + 1) +
+                "/" +
+                dt.getFullYear() +
+                " " +
+                (hh < 10 ? "0" + hh : hh) +
+                ":" +
+                (mm < 10 ? "0" + mm : mm),
+              nt = (bk.note || bkNote || "").trim();
             p(
               "Cảm ơn " +
-                nm +
-                "! Đã ghi nhận đặt bàn. Bạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
+                (bk.name || nm) +
+                "! Đã ghi nhận đặt bàn.\n" +
+                "• Số người: " +
+                (bk.party_size || pt) +
+                "\n• SĐT: " +
+                (bk.phone || ph) +
+                "\n• Ngày/giờ: " +
+                ngayGio +
+                (nt ? "\n• Ghi chú: " + nt : "") +
+                "\nBạn được +10 điểm Pi. Mr Thành 0971363121 sẽ liên hệ xác nhận.",
             );
             setBkName("");
             setBkPhone("");
@@ -9526,6 +9595,20 @@ function tp() {
     }),
   ],
 }),
+                R("button", {
+                  onClick: () => e(!0),
+                  className:
+                    "mt-3 flex items-center gap-2 rounded-full text-white font-bold",
+                  style: {
+                    background:
+                      "linear-gradient(135deg,#d4af37,#22c55e)",
+                    boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
+                    padding: "10px 18px",
+                    fontSize: "0.9rem",
+                  },
+                  "aria-label": "Open chatbot",
+                  children: "\uD83D\uDCAC AI Tư vấn và đặt bàn",
+                }),
 
 
                 s("div", {
@@ -9784,7 +9867,7 @@ function tp() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               },
-              children: "ĐẶT BÀN VIP - Pioneers giảm 10% bill",
+              children: "ĐẶT BÀN VIP - Tặng 200 Pi",
             }),
             R("p", {
               className: "mt-1 text-[0.85rem] text-[#d4af37] font-semibold",
@@ -9849,6 +9932,7 @@ function tp() {
               R("div", {
                 className:
                   "mt-3 text-[0.85rem] text-white bg-white/10 border border-white/10 rounded-lg p-3",
+                style: { whiteSpace: "pre-line" },
                 children: r,
               }),
             s("div", {
@@ -9934,6 +10018,14 @@ function tp() {
             }),
             " • ",
             R("a", {
+              href: "https://www.google.com/maps/search/?api=1&query=303+Ph%E1%BA%A1m+V%C4%83n+%C4%90%E1%BB%93ng+G%C3%B2+V%E1%BA%A5p+TP.HCM",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-[#9ca3af] hover:text-white underline ml-1",
+              children: "Chỉ đường ↗",
+            }),
+            " • ",
+            R("a", {
               href: "#",
               className: "text-[#9ca3af] hover:text-white underline ml-2",
               children: "Privacy",
@@ -9946,17 +10038,6 @@ function tp() {
             }),
           ],
         }),
-      }),
-      R("button", {
-        onClick: () => e(!0),
-        className:
-          "fixed top-6 right-6 w-[78px] h-[78px] rounded-full flex items-center justify-center text-white text-[31px] z-40 hover:scale-110 transition-transform",
-        style: {
-          background: "linear-gradient(135deg,#d4af37,#22c55e)",
-          boxShadow: "0 4px 20px rgba(212,175,55,0.4)",
-        },
-        "aria-label": "Open chatbot",
-        children: "\uD83D\uDCAC",
       }),
       A &&
         R("div", {
@@ -10027,12 +10108,6 @@ function tp() {
                             children: [
                               R("div", {
                                 className:
-                                  "text-[0.65rem] bg-[#111827] border border-[#22c55e]/30 text-white px-2 py-1 rounded-full",
-                                children:
-                                  "Tầng 1 FAQ: 303 Phạm Văn Đồng • Gò Vấp • 17:00-03:00 • Mr Thành 0971363121",
-                              }),
-                              R("div", {
-                                className:
                                   "text-[0.65rem] bg-[#111827] border border-[#facc15]/30 text-white px-2 py-1 rounded-full",
                                 children: "Tầng 2 Menu: 308 món",
                               }),
@@ -10040,7 +10115,7 @@ function tp() {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#ef4444]/30 text-white px-2 py-1 rounded-full",
                                 children:
-                                  "Tầng 3 Đặt bàn VIP Pioneers giảm 10% bill",
+                                  "Tầng 3 Đặt bàn VIP - Tặng 200 Pi",
                               }),
                             ],
                           }),
