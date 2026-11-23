@@ -1,0 +1,2 @@
+.hatch-scrollbar-overlay:has([data-min-scroll-thumb]){--hatch-scrollbar-min-thumb-height:28px}.hatch-scrollbar-overlay:has([data-min-scroll-thumb])::-webkit-scrollbar-thumb{min-height:28px}
+/*# sourceMappingURL=3zpuqt-8vrrqx.css.map*/

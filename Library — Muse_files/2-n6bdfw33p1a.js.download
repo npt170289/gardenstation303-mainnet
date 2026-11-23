@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,20525,t=>{"use strict";var e=t.i(588639),i=t.i(273778),n=t.i(36573);t.s(["checkExpectedChipIds",0,function(t,l){let o=l.map(n.B).filter(t=>null!==t);if(0===o.length||o.length!==l.length)throw new e.x("ChipPinInvalid","destination chip constraint is empty or malformed");for(let e of o){let n=new Uint8Array(64);for(let t=0;t<e.length;t+=2)n[t/2]=Number.parseInt(e.slice(t,t+2),16);if((0,i.p)(n,t))return}throw new e.x("ChipMismatch","attested destination is outside the selected chip set")}])}]);
+
+//# sourceMappingURL=417sqotj6tae0.js.map

@@ -9341,83 +9341,84 @@ function tp() {
         /\b(menu|booking|book|address|open|hours|price|vip|hello|hi|hey|table|reservation|how|what|where|when|pay|payment)\b/.test(a)
       )
         lang = "en";
-      if (
-        a.includes("menu") ||
-        a.includes("món") ||
-        a.includes("菜单") ||
-        a.includes("菜")
-      )
-        q =
-          lang === "cn"
-            ? "本店菜单有308道菜：Gà Tre 9道，Lai Rai 36道，Lúa Mạch 25道，Mực 12道，Tôm 10道，Hải Sản 23道，Đồng Quê 15道，Cá 9道，Cơm Mì Miến 14道，Cháo Lẩu 19道，Combo 10道，Combo Set Rượu 44套，Cocktail 3L 17种，Drinks 65种。价格不含增值税和服务费。您想看哪个区域？NEWSPACE EMBER还是户外BEER GARDEN？"
-            : lang === "en"
-              ? "Our menu has 308 dishes: Gà Tre 9, Lai Rai 36, Lúa Mạch 25, Mực 12, Tôm 10, Hải Sản 23, Đồng Quê 15, Cá 9, Cơm Mì Miến 14, Cháo Lẩu 19, Combo 10, Combo Set Rượu 44 sets, Cocktail 3L 17, Drinks 65. Prices exclude VAT and service fee. Which area would you like? NEWSPACE EMBER or outdoor BEER GARDEN?"
-              : "Dạ menu nhà em có 308 món ạ: Gà Tre 9 món, Lai Rai 36 món, Lúa Mạch 25 món, Mực 12 món, Tôm 10 món, Hải Sản 23 món, Đồng Quê 15 món, Cá 9 món, Cơm Mì Miến 14 món, Cháo Lẩu 19 món, Combo 10 món, Combo Set Rượu 44 set, Cocktail 3L 17 loại, Drinks 65 loại. Giá chưa gồm VAT và phí dịch vụ. Quý khách muốn xem khu nào ạ? NEWSPACE EMBER hay BEER GARDEN NGOÀI TRỜI?";
-      else if (
-        a.includes("đặt bàn") ||
-        a.includes("dat ban") ||
-        a.includes("booking") ||
-        a.includes("vip") ||
-        a.includes("book") ||
-        a.includes("reservation") ||
-        a.includes("table") ||
-        a.includes("预订") ||
-        a.includes("预定") ||
-        a.includes("订桌") ||
-        a.includes("订位")
-      )
-        q =
-          lang === "cn"
-            ? "预订贵宾桌请联系 Mr Thành 0971363121。热辣DJ、舞者、专业公关。户外啤酒花园。请问几位、几点到？"
-            : lang === "en"
-              ? "For VIP booking, please contact Mr Thành 0971363121. Hot DJ, dancer, pro PR. Outdoor Beer Garden. How many people and what time?"
-              : "Dạ đặt bàn VIP quý khách vui lòng liên hệ Mr Thành 0971363121 ạ. DJ hot, dancer, PR pro. Beer Garden ngoài trời thoáng mát. Quý khách đi mấy người và mấy giờ ạ?";
-      else if (
-        a.includes("địa chỉ") ||
-        a.includes("dia chi") ||
-        a.includes("ở đâu") ||
-        a.includes("giờ") ||
-        a.includes("open") ||
-        a.includes("faq") ||
-        a.includes("address") ||
-        a.includes("hours") ||
-        a.includes("地址") ||
-        a.includes("在哪") ||
-        a.includes("营业") ||
-        a.includes("时间")
-      )
-        q =
-          lang === "cn"
-            ? "常见问题：地址303 Phạm Văn Đồng, Hạnh Thông, Gò Vấp。营业时间每天17:00 - 03:00。订桌热线：Mr Thành 0971363121。Gò Vấp市中心的热带雨林，冰啤酒、深座椅。"
-            : lang === "en"
-              ? "FAQ: Address 303 Phạm Văn Đồng, Hạnh Thông Ward, Gò Vấp. Open 17:00 - 03:00 daily. Booking hotline: Mr Thành 0971363121. Tropical jungle in the heart of Gò Vấp, cold beer, deep lounge seats."
-              : "Dạ Tầng 1 FAQ: Địa chỉ 303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp. Mở cửa 17:00 - 03:00 hàng ngày. Hotline đặt bàn: Mr Thành 0971363121. Không gian rừng nhiệt đới giữa lòng Gò Vấp, bia lạnh, ghế nệm sâu ạ.";
-      else if (
-        a.includes("pi") ||
-        a.includes("thanh toán") ||
-        a.includes("pay")
-      )
+      // Nhánh Pi — GIỮ NGUYÊN BYTE (Nguyễn quyết định 2026-11-20). Kiểm tra TRƯỚC chatbot thông minh.
+      if (a.includes("pi") || a.includes("thanh toán") || a.includes("pay"))
         q =
           "Dạ Pi Network Payment - PCT APPROVAL READY ạ. SDK LOADER IDLE, AUTH IDLE, BACKEND /api/pay_a2u. Thanh toán Pi chỉ cần khi PAY, còn chat tư vấn thì không cần đăng nhập Pi Browser ạ.";
-      else
+      else if (window.ChatbotIntent) {
+        // Chatbot thông minh (intent + tra menu thật). Build 1 lần từ window.MENU_ITEMS.
+        if (!window.__GardenSmartBot) {
+          var __mi = window.MENU_ITEMS || [];
+          var __catCount = {};
+          __mi.forEach(function (m) {
+            __catCount[m.category] = (__catCount[m.category] || 0) + 1;
+          });
+          var __catNames = window.__MENU_CATEGORIES__ || [];
+          if (!__catNames.length) {
+            __catNames = Object.keys(__catCount);
+          }
+          var __cats = __catNames.map(function (c) {
+            return { name: c, count: __catCount[c] || 0 };
+          });
+          window.__GardenSmartBot = window.ChatbotIntent.create({
+            venueName: "303 Garden Station",
+            contactName: "Mr Thành",
+            hotline: "0971363121",
+            address: "303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp",
+            hours: "17:00 - 03:00",
+            totalDishes: 308,
+            categories: __cats,
+            menu: __mi,
+            piReply:
+              "Dạ Pi Network Payment - PCT APPROVAL READY ạ. SDK LOADER IDLE, AUTH IDLE, BACKEND /api/pay_a2u. Thanh toán Pi chỉ cần khi PAY, còn chat tư vấn thì không cần đăng nhập Pi Browser ạ.",
+            parkingReply: null,
+            giftText: "tặng 200 Pi",
+          });
+        }
+        q = window.__GardenSmartBot.reply(z);
+      } else
         q =
           lang === "cn"
             ? '需要什么帮助？需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看308道菜，"booking"预订贵宾桌，"address"查看信息。'
             : lang === "en"
               ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 308 dishes, "booking" for VIP booking, "address" for info.'
               : "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
-      setTimeout(() => {
+      setTimeout(async () => {
+        // Giới hạn 20 câu/ngày/người (theo IP, qua /api/chat-limit). Lỗi -> cho qua (fail open).
+        let __allowed = true;
+        try {
+          const __r = await fetch("/api/chat-limit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ venue: "garden303" }),
+          });
+          if (__r.ok) {
+            const __d = await __r.json();
+            __allowed = __d.allowed !== false;
+          }
+        } catch (e) {}
+        if (!__allowed) {
+          q =
+            lang === "cn"
+              ? "您今天已经问了20个问题，请致电 Mr Thành 0971363121，工作人员会继续帮您。"
+              : lang === "en"
+                ? "You've asked 20 questions today. Please call Mr Thành 0971363121 and our staff will help you further."
+                : "Dạ quý khách đã hỏi đủ 20 câu hôm nay rồi ạ. Quý khách gọi Mr Thành 0971363121 để nhân viên hỗ trợ tiếp nhé.";
+        }
         o((m) => [...m, { from: "bot", text: q }]);
         // Lưu lịch sử chat vào Supabase để huấn luyện AI (fire-and-forget, không chờ).
-        fetch("/api/chats", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            session_id: GardenSessionId,
-            user_message: z,
-            bot_reply: q,
-          }),
-        }).catch(() => {});
+        // Không lưu khi đã chạm giới hạn (tránh spam log).
+        if (__allowed) {
+          fetch("/api/chats", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              session_id: GardenSessionId,
+              user_message: z,
+              bot_reply: q,
+            }),
+          }).catch(() => {});
+        }
       }, 400);
     },
     bkSubmit = (e) => {
@@ -9858,7 +9859,7 @@ function tp() {
         className: "max-w-[1280px] mx-auto p-4",
         children: s("div", {
           className:
-            "bg-[#0f172a] border border-white/[0.08] rounded-[16px] p-4",
+            "bg-[#0f172a] border border-white/[0.08] rounded-[16px] p-4 garden-banner-border",
           children: [
             R("h3", {
               className: "text-[1rem] font-bold",
