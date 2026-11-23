@@ -9286,6 +9286,22 @@ var SZ = window.__MENU__ || [],
 // Session chat dùng chung cho cả phiên xem trang — để lưu lịch sử vào bảng chats.
 var GardenSessionId =
   "web-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
+// Mã trình duyệt riêng cho giới hạn chat (20 câu/ngày). Lưu ở sessionStorage để mỗi
+// trình duyệt/tab có quota riêng — tránh chặn nhầm khi nhiều khách dùng chung WiFi quán.
+// Không dùng localStorage (theo quy tắc Phase 1: dữ liệu ở Supabase, không ở trình duyệt).
+function getChatCid() {
+  try {
+    var k = "chat_cid";
+    var cid = sessionStorage.getItem(k);
+    if (!cid) {
+      cid = "cid-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+      sessionStorage.setItem(k, cid);
+    }
+    return cid;
+  } catch (e) {
+    return "cid-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+  }
+}
 function tp() {
   let [A, e] = Ze.useState(!1),
     [n, l] = Ze.useState("ALL"),
@@ -9384,13 +9400,13 @@ function tp() {
               ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 308 dishes, "booking" for VIP booking, "address" for info.'
               : "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(async () => {
-        // Giới hạn 20 câu/ngày/người (theo IP, qua /api/chat-limit). Lỗi -> cho qua (fail open).
+        // Giới hạn 20 câu/ngày/người (theo trình duyệt, qua /api/chat-limit). Lỗi -> cho qua (fail open).
         let __allowed = true;
         try {
           const __r = await fetch("/api/chat-limit", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ venue: "garden303" }),
+            body: JSON.stringify({ venue: "garden303", cid: getChatCid() }),
           });
           if (__r.ok) {
             const __d = await __r.json();
