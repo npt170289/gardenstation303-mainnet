@@ -10043,13 +10043,13 @@ function tp() {
             }),
             " • ",
             R("a", {
-              href: "#",
+              href: "privacy.html",
               className: "text-[#9ca3af] hover:text-white underline ml-2",
               children: "Privacy",
             }),
             " • ",
             R("a", {
-              href: "#",
+              href: "terms.html",
               className: "text-[#9ca3af] hover:text-white underline ml-1",
               children: "Terms",
             }),
