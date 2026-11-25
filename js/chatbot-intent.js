@@ -10,9 +10,9 @@
  *     hotline: "0971363121",
  *     address: "303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp",
  *     hours: "17:00 - 03:00",
- *     totalDishes: 308,
- *     categories: [{ name: "Gà Tre", count: 9 }, ...],
- *     menu: [{ name: "Gà Tre Hấp Lá Chanh", price: "319K", category: "Gà Tre" }, ...],
+ *     totalDishes: 270,
+ *     categories: [{ name: "BEST SELLER 303", count: 11 }, ...],
+ *     menu: [{ name: "Cơm chiên CABI", price: "199K", category: "BEST SELLER 303" }, ...],
  *     piReply: "...",        // câu trả lời riêng cho Pi/thanh toán (từng quán khác nhau)
  *     parkingReply: "...",   // câu trả lời chỗ đậu xe; null = chưa có dữ liệu -> bot nói không biết
  *     giftText: "tặng 200 Pi"  // dạng ngắn, dùng trong câu "Đặt bàn VIP được tặng 200 Pi ạ."

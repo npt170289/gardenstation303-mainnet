@@ -9252,20 +9252,30 @@ var SZ = window.__MENU__ || [],
     { key: "DRINKS", label: "DRINKS" },
   ],
   DZ = [
-    "Gà Tre",
-    "Lai Rai",
-    "Lúa Mạch",
-    "Cá",
-    "Mực",
-    "Tôm",
-    "Hải Sản",
-    "Đồng Quê",
-    "Cơm Mì Miến",
-    "Cháo Lẩu",
-    "Combo",
-    "Combo Rượu",
-    "Cocktail",
-    "Drinks",
+    "BEST SELLER 303",
+    "LAIZAI",
+    "SALAD, GỎI, RAU",
+    "SASHIMI",
+    "COMBO",
+    "SPEICAL",
+    "HEO/PIG",
+    "GÀ/NGAN",
+    "BÒ/COW",
+    "CÁ/FISH",
+    "MỰC/SQUID",
+    "TÔM/SHRIMP",
+    "HẢI SẢN TƯƠI SỐNG",
+    "ĐỒNG QUÊ",
+    "CƠM – MÌ – MIẾN",
+    "CHÁO – LẨU",
+    "DRINKS",
+    "RƯỢU",
+    "COCKTAIL",
+    "MENU RƯỢU",
+    "COMBO VIP",
+    "COCKTAIL COMBO",
+    "RETAIL PRICES",
+    "COMBO BEER",
     "All",
   ],
   GZ = [
@@ -9305,13 +9315,13 @@ function getChatCid() {
 function tp() {
   let [A, e] = Ze.useState(!1),
     [n, l] = Ze.useState("ALL"),
-    [t, u] = Ze.useState("Gà Tre"),
+    [t, u] = Ze.useState("BEST SELLER 303"),
     [r, p] = Ze.useState(""),
     [i, c] = Ze.useState(!0),
     [Z, o] = Ze.useState([
       {
         from: "bot",
-        text: 'Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 308 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.\nHow can I help? Type "menu" / "booking" / "address".\n需要什么帮助？输入"menu" / "booking" / "address"。',
+        text: 'Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 270 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.\nHow can I help? Type "menu" / "booking" / "address".\n需要什么帮助？输入"menu" / "booking" / "address"。',
       },
     ]),
     [I, V] = Ze.useState(""),
@@ -9382,7 +9392,7 @@ function tp() {
             hotline: "0971363121",
             address: "303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp",
             hours: "17:00 - 03:00",
-            totalDishes: 308,
+            totalDishes: 270,
             categories: __cats,
             menu: __mi,
             piReply:
@@ -9395,9 +9405,9 @@ function tp() {
       } else
         q =
           lang === "cn"
-            ? '需要什么帮助？需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看308道菜，"booking"预订贵宾桌，"address"查看信息。'
+            ? '需要什么帮助？需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看270道菜，"booking"预订贵宾桌，"address"查看信息。'
             : lang === "en"
-              ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 308 dishes, "booking" for VIP booking, "address" for info.'
+              ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 270 dishes, "booking" for VIP booking, "address" for info.'
               : "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(async () => {
         // Giới hạn 20 câu/ngày/người (theo trình duyệt, qua /api/chat-limit). Lỗi -> cho qua (fail open).
@@ -10126,7 +10136,7 @@ function tp() {
                               R("div", {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#facc15]/30 text-white px-2 py-1 rounded-full",
-                                children: "Tầng 2 Menu: 308 món",
+                                children: "Tầng 2 Menu: 270 món",
                               }),
                               R("div", {
                                 className:

@@ -2,7 +2,7 @@
 // Nhiệm vụ DUY NHẤT: ghi lịch sử chat vào Supabase qua /api/chats
 // để huấn luyện AI. Không UI, không nút nổi, không Pi Payment,
 // không gọi payGarden303, không gọi Pi SDK.
-// Thông tin đúng: Hotline Mr Thành 0971363121 • Menu 308 món • Mở cửa 17:00-03:00
+// Thông tin đúng: Hotline Mr Thành 0971363121 • Menu 270 món • Mở cửa 17:00-03:00
 // (chỉ ghi trong comment — file này không có giao diện).
 //
 // Cách dùng (từ bất kỳ chỗ nào trong trang):
