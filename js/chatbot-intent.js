@@ -10,7 +10,7 @@
  *     hotline: "0971363121",
  *     address: "303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp",
  *     hours: "17:00 - 03:00",
- *     totalDishes: 270,
+ *     totalDishes: __mi.length, // tự đếm từ menu, không ghi cứng
  *     categories: [{ name: "BEST SELLER 303", count: 11 }, ...],
  *     menu: [{ name: "Cơm chiên CABI", price: "199K", category: "BEST SELLER 303" }, ...],
  *     piReply: "...",        // câu trả lời riêng cho Pi/thanh toán (từng quán khác nhau)

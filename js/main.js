@@ -9321,7 +9321,7 @@ function tp() {
     [Z, o] = Ze.useState([
       {
         from: "bot",
-        text: 'Các bạn cần hỗ trợ gì ạ? Gõ "menu" để xem 270 món, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.\nHow can I help? Type "menu" / "booking" / "address".\n需要什么帮助？输入"menu" / "booking" / "address"。',
+        text: 'Các bạn cần hỗ trợ gì ạ? Ẩm thực đa dạng món Á-Âu chuẩn vị. Gõ "menu" để xem thực đơn, "đặt bàn" để đặt VIP, "địa chỉ" để xem thông tin.\nHow can I help? Diverse Asian-European cuisine, authentic flavors. Type "menu" / "booking" / "address".\n需要什么帮助？亚欧美食，种类丰富，地道风味。输入"menu" / "booking" / "address"。',
       },
     ]),
     [I, V] = Ze.useState(""),
@@ -9392,7 +9392,7 @@ function tp() {
             hotline: "0971363121",
             address: "303 Phạm Văn Đồng, P. Hạnh Thông, Gò Vấp",
             hours: "17:00 - 03:00",
-            totalDishes: 270,
+            totalDishes: __mi.length,
             categories: __cats,
             menu: __mi,
             piReply:
@@ -9405,9 +9405,9 @@ function tp() {
       } else
         q =
           lang === "cn"
-            ? '需要什么帮助？需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看270道菜，"booking"预订贵宾桌，"address"查看信息。'
+            ? '需要什么帮助？亚欧美食，种类丰富，地道风味。需要菜单、预订贵宾桌还是地址和营业时间？输入"menu"查看菜单，"booking"预订贵宾桌，"address"查看信息。'
             : lang === "en"
-              ? 'How can I help? Do you need the menu, VIP booking, or address & hours? Type "menu" for 270 dishes, "booking" for VIP booking, "address" for info.'
+              ? 'How can I help? Diverse Asian-European cuisine, authentic flavors. Do you need the menu, VIP booking, or address & hours? Type "menu" for the menu, "booking" for VIP booking, "address" for info.'
               : "Dạ em hiểu rồi ạ. Các bạn cần hỗ trợ thêm về menu, đặt bàn VIP hay địa chỉ giờ mở cửa ạ? Quý khách cứ nói em hỗ trợ ngay nhé!";
       setTimeout(async () => {
         // Giới hạn 20 câu/ngày/người (theo trình duyệt, qua /api/chat-limit). Lỗi -> cho qua (fail open).
@@ -10136,7 +10136,7 @@ function tp() {
                               R("div", {
                                 className:
                                   "text-[0.65rem] bg-[#111827] border border-[#facc15]/30 text-white px-2 py-1 rounded-full",
-                                children: "Tầng 2 Menu: 270 món",
+                                children: "Tầng 2 Menu",
                               }),
                               R("div", {
                                 className:
