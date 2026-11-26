@@ -36,6 +36,7 @@
 
   // Tính lại vị trí/kích thước các mảnh theo khung hiện tại (đúng object-cover).
   function layout(item) {
+    if (item.done) return false;
     var wrap = item.wrap, img = item.img;
     var W = wrap.clientWidth, H = wrap.clientHeight;
     if (!W || !H || !img.naturalWidth || !img.naturalHeight) return false;
@@ -58,11 +59,24 @@
     return true;
   }
 
+  // Ráp xong: gỡ các mảnh, hiện lại ảnh gốc (ảnh thật, không còn đường kẻ nối).
+  function finish(item) {
+    if (item.done) return;
+    item.done = true;
+    for (var i = 0; i < item.tiles.length; i++) {
+      var t = item.tiles[i];
+      if (t.parentNode) t.parentNode.removeChild(t);
+    }
+    item.tiles = [];
+    item.wrap.classList.add("mg-done");
+    item.wrap.classList.remove("mg-play", "mg-show");
+  }
+
   function play(item) {
     if (item.played) return;
     item.played = true;
     if (reducedMotion() || !("IntersectionObserver" in window)) {
-      item.wrap.classList.add("mg-show");
+      finish(item);
       return;
     }
     var io = new IntersectionObserver(function (entries) {
@@ -70,6 +84,7 @@
         if (!en.isIntersecting) return;
         io.disconnect();
         item.wrap.classList.add("mg-play");
+        setTimeout(function () { finish(item); }, item.maxDelay + 650);
       });
     }, { rootMargin: "80px 0px", threshold: 0.01 });
     io.observe(item.wrap);
@@ -101,6 +116,7 @@
     var filter = img.style.filter || "";
     var tiles = [];
     var total = size.cols * size.rows;
+    var maxDelay = 0;
     for (var i = 0; i < total; i++) {
       var t = document.createElement("div");
       t.className = "mg-tile";
@@ -109,11 +125,13 @@
       if (filter) t.style.filter = filter;
       t.style.setProperty("--mg-dx", rand(-18, 18).toFixed(1) + "px");
       t.style.setProperty("--mg-dy", rand(-18, 18).toFixed(1) + "px");
-      t.style.setProperty("--mg-delay", Math.round(i * STAGGER_MS + rand(0, 10)) + "ms");
+      var delay = Math.round(i * STAGGER_MS + rand(0, 10));
+      if (delay > maxDelay) maxDelay = delay;
+      t.style.setProperty("--mg-delay", delay + "ms");
       wrap.appendChild(t);
       tiles.push(t);
     }
-    var item = { wrap: wrap, img: img, tiles: tiles, cols: size.cols, rows: size.rows, played: false };
+    var item = { wrap: wrap, img: img, tiles: tiles, cols: size.cols, rows: size.rows, played: false, maxDelay: maxDelay };
     built.push(item);
     if (!layout(item)) {
       // Khung chưa đo được (React vừa render): thử lại khung hình sau.

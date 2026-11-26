@@ -51,6 +51,11 @@
   animation: none !important;
 }
 
+/* Sau khi ráp xong: gỡ các mảnh, hiện lại ảnh gốc (không còn đường kẻ nối). */
+.mg-wrap.mg-done > img.mg-src {
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mg-wrap .mg-tile {
     opacity: 1 !important;
