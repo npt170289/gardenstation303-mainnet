@@ -9710,12 +9710,6 @@ function tp() {
                         : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
                       style: {
                         filter: "brightness(0.85) contrast(1.1)",
-                        ...(isFly
-                          ? {
-                              animation:
-                                "garden-flycam 8s ease-in-out infinite alternate",
-                            }
-                          : {}),
                       },
                     },
                     a,
@@ -9730,12 +9724,6 @@ function tp() {
                         : "w-full h-[320px] object-cover rounded-[12px] border border-white/[0.08]",
                       style: {
                         filter: "brightness(0.85) contrast(1.1)",
-                        ...(isFly
-                          ? {
-                              animation:
-                                "garden-flycam 8s ease-in-out infinite alternate",
-                            }
-                          : {}),
                       },
                     },
                     a,

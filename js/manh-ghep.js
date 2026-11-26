@@ -9,7 +9,6 @@
 //   cao cố định 320px) nên không méo hình, không lệch khung.
 // - Vào viewport (IntersectionObserver, rootMargin 80px) mới chạy, chỉ 1 lần.
 //   Ảnh đã trong viewport lúc tải trang thì chạy ngay lúc tải.
-// - Ráp xong ~1.15s: ảnh vốn có flycam (Ken Burns) thì tiếp tục bay flycam.
 // - Không có IntersectionObserver hoặc prefers-reduced-motion: hiện ảnh đủ, không hiệu ứng.
 // - Ảnh lỗi tải: giữ nguyên ảnh gốc, không ráp.
 (function () {
@@ -18,7 +17,6 @@
   var MOBILE_COLS = 4, MOBILE_ROWS = 3;
   var MOBILE_MAX_W = 640;
   var STAGGER_MS = 30;      // lệch nhau giữa các mảnh
-  var DONE_DELAY_MS = 1100; // ráp xong thì bật flycam tiếp nối
   var built = [];           // { wrap, img, tiles, cols, rows }
 
   function reducedMotion() {
@@ -65,7 +63,6 @@
     item.played = true;
     if (reducedMotion() || !("IntersectionObserver" in window)) {
       item.wrap.classList.add("mg-show");
-      if (item.fly) item.wrap.classList.add("mg-done");
       return;
     }
     var io = new IntersectionObserver(function (entries) {
@@ -73,9 +70,6 @@
         if (!en.isIntersecting) return;
         io.disconnect();
         item.wrap.classList.add("mg-play");
-        if (item.fly) {
-          setTimeout(function () { item.wrap.classList.add("mg-done"); }, DONE_DELAY_MS);
-        }
       });
     }, { rootMargin: "80px 0px", threshold: 0.01 });
     io.observe(item.wrap);
@@ -100,8 +94,6 @@
     wrap.className = img.className + " mg-wrap";
     wrap.setAttribute("role", "img");
     if (img.alt) wrap.setAttribute("aria-label", img.alt);
-    var fly = (img.style.animation || "").indexOf("garden-flycam") !== -1;
-    if (fly) wrap.classList.add("mg-fly");
     img.parentNode.insertBefore(wrap, img);
     wrap.appendChild(img);
     img.classList.add("mg-src");
@@ -121,7 +113,7 @@
       wrap.appendChild(t);
       tiles.push(t);
     }
-    var item = { wrap: wrap, img: img, tiles: tiles, cols: size.cols, rows: size.rows, fly: fly, played: false };
+    var item = { wrap: wrap, img: img, tiles: tiles, cols: size.cols, rows: size.rows, played: false };
     built.push(item);
     if (!layout(item)) {
       // Khung chưa đo được (React vừa render): thử lại khung hình sau.

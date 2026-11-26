@@ -4,7 +4,7 @@
    - Mảnh bay vào từ vị trí lệch ngẫu nhiên nhỏ + mờ dần, lệch nhau ~32ms,
      tổng ~1s, ease-out cubic.
    - Vào viewport (IntersectionObserver, rootMargin 80px) mới chạy, chỉ chạy 1 lần.
-   - Sau khi ráp xong, ảnh vốn có flycam (Ken Burns) thì tiếp tục bay flycam.
+   - Chỉ còn Mảnh ghép: flycam (Ken Burns) cũ đã bỏ hẳn (2026-11-27).
    - Không JS / không IntersectionObserver / prefers-reduced-motion: hiện ảnh đủ, không hiệu ứng. */
 
 .mg-wrap {
@@ -42,10 +42,13 @@
   transition: none;
 }
 
-/* Ken Burns (flycam) tiếp nối sau khi ráp xong — chỉ ảnh vốn có flycam.
-   Keyframes garden-flycam đã có sẵn trong index.html. */
-.mg-wrap.mg-done.mg-fly {
-  animation: garden-flycam 8s ease-in-out infinite alternate;
+/* Khử flycam cũ (2026-11-27): main.js/manh-ghep.js bản cũ còn cache 24h vẫn gán
+   animation garden-flycam cho ảnh gallery. Ép tắt hẳn trên khung ráp và ảnh gốc
+   (kể cả khi main.js cũ gán inline style, vì !important thắng inline).
+   Keyframes garden-flycam cũng đã xóa khỏi index.html. */
+.mg-wrap.mg-done.mg-fly,
+.mg-wrap > img.mg-src {
+  animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,8 +56,5 @@
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
-  }
-  .mg-wrap.mg-done.mg-fly {
-    animation: none !important;
   }
 }
