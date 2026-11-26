@@ -1,0 +1,60 @@
+/* Mảnh ghép — hiệu ứng ráp ảnh gallery từ nhiều mảnh nhỏ bay vào.
+   Áp dụng cho ảnh gallery (không áp dụng cho video). Pure CSS + js/manh-ghep.js.
+   - 20 mảnh (5×4) trên desktop, 12 mảnh (4×3) trên mobile.
+   - Mảnh bay vào từ vị trí lệch ngẫu nhiên nhỏ + mờ dần, lệch nhau ~32ms,
+     tổng ~1s, ease-out cubic.
+   - Vào viewport (IntersectionObserver, rootMargin 80px) mới chạy, chỉ chạy 1 lần.
+   - Sau khi ráp xong, ảnh vốn có flycam (Ken Burns) thì tiếp tục bay flycam.
+   - Không JS / không IntersectionObserver / prefers-reduced-motion: hiện ảnh đủ, không hiệu ứng. */
+
+.mg-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ảnh gốc giữ trong DOM làm dự phòng + SEO, nhưng ẩn khi đã ráp bằng các mảnh. */
+.mg-wrap > img.mg-src {
+  display: none;
+}
+
+.mg-tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: translate(var(--mg-dx, 0px), var(--mg-dy, 0px)) scale(0.92);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.mg-wrap.mg-play .mg-tile {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--mg-delay, 0ms);
+}
+
+/* Hiện ngay, không hiệu ứng (dự phòng khi không có IntersectionObserver). */
+.mg-wrap.mg-show .mg-tile {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Ken Burns (flycam) tiếp nối sau khi ráp xong — chỉ ảnh vốn có flycam.
+   Keyframes garden-flycam đã có sẵn trong index.html. */
+.mg-wrap.mg-done.mg-fly {
+  animation: garden-flycam 8s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-wrap .mg-tile {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .mg-wrap.mg-done.mg-fly {
+    animation: none !important;
+  }
+}
