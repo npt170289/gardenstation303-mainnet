@@ -1,7 +1,7 @@
 /* Mảnh ghép — hiệu ứng ráp ảnh gallery từ nhiều mảnh nhỏ bay vào.
    Áp dụng cho ảnh gallery (không áp dụng cho video). Pure CSS + js/manh-ghep.js.
    - 20 mảnh (5×4) trên desktop, 12 mảnh (4×3) trên mobile.
-   - Mảnh bay vào từ vị trí lệch ngẫu nhiên nhỏ + mờ dần, lệch nhau ~32ms,
+   - Mảnh bay vào từ vị trí lệch ngẫu nhiên nhỏ + mờ dần, lệch nhau ~38ms,
      tổng ~1s, ease-out cubic.
    - Vào viewport (IntersectionObserver, rootMargin 80px) mới chạy, chỉ chạy 1 lần.
    - Chỉ còn Mảnh ghép: flycam (Ken Burns) cũ đã bỏ hẳn (2026-11-27).
@@ -21,7 +21,7 @@
   position: absolute;
   background-repeat: no-repeat;
   opacity: 0;
-  transform: translate(var(--mg-dx, 0px), var(--mg-dy, 0px)) scale(0.92);
+  transform: translate(var(--mg-dx, 0px), var(--mg-dy, 0px)) scale(0.96);
   will-change: transform, opacity;
   pointer-events: none;
 }
@@ -30,8 +30,8 @@
   opacity: 1;
   transform: translate(0, 0) scale(1);
   transition:
-    opacity 0.45s ease-out,
-    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 0.28s ease-out,
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--mg-delay, 0ms);
 }
 

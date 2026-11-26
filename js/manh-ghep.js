@@ -16,7 +16,7 @@
   var DESKTOP_COLS = 5, DESKTOP_ROWS = 4;
   var MOBILE_COLS = 4, MOBILE_ROWS = 3;
   var MOBILE_MAX_W = 640;
-  var STAGGER_MS = 30;      // lệch nhau giữa các mảnh
+  var STAGGER_MS = 38;      // lệch nhau giữa các mảnh
   var built = [];           // { wrap, img, tiles, cols, rows }
 
   function reducedMotion() {
@@ -123,8 +123,8 @@
       t.setAttribute("aria-hidden", "true");
       t.style.backgroundImage = 'url("' + img.currentSrc + '")';
       if (filter) t.style.filter = filter;
-      t.style.setProperty("--mg-dx", rand(-18, 18).toFixed(1) + "px");
-      t.style.setProperty("--mg-dy", rand(-18, 18).toFixed(1) + "px");
+      t.style.setProperty("--mg-dx", rand(-14, 14).toFixed(1) + "px");
+      t.style.setProperty("--mg-dy", rand(-10, 10).toFixed(1) + "px");
       var delay = Math.round(i * STAGGER_MS + rand(0, 10));
       if (delay > maxDelay) maxDelay = delay;
       t.style.setProperty("--mg-delay", delay + "ms");
